@@ -5,13 +5,20 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+local function random_theme()
+  local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", }
+  math.randomseed(os.time())  -- Seed the randomizer
+  return themes[math.random(#themes)]  -- Pick and return a random theme
+end
+
 ---@type LazySpec
 return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    colorscheme = "rose-pine-moon",
+    -- colorscheme = "rose-pine-moon",
+    colorscheme = random_theme(),
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = { -- this table overrides highlights in all themes

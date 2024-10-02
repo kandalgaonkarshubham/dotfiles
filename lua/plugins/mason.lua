@@ -11,15 +11,15 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "html",
-        "cssls",
-        "tailwindcss",
-        "eslint",
+        -- "html",
+        -- "cssls",
+        -- "tailwindcss",
+        -- "eslint",
         -- "ts_ls",
-        "jsonls",
-        "marksman",
-        "prismals",
-        "pyright",
+        -- "jsonls",
+        -- "marksman",
+        -- "prismals",
+        -- "pyright",
         -- add more arguments for adding more language servers
       },
     },
@@ -31,8 +31,8 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        "prettier",
-        "eslint_d",
+        -- "prettier",
+        -- "eslint_d",
         -- add more arguments for adding more null-ls sources
       },
     },
