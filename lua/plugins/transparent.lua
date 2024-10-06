@@ -7,9 +7,9 @@ return {
           "Winbar", "WinbarNC",
           "WhichKeyNormal", "TelescopeNormal", "TelescopeBorder",
           "NotifyINFOBorder", "NotifyWARNBorder", "NotifyERRORBorder",
-          "lualine_c_inactive",
-          "lualine_c_insert", "lualine_c_visual", "lualine_c_command", "lualine_c_replace",
-          "NeoTreeNormal", "NeoTreeWinSeparator",
+          "lualine_c_inactive", "lualine_c_insert", "lualine_c_visual", "lualine_c_command", "lualine_c_replace",
+          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
+          "MasonNormal", "LazyNormal", "NoiceCmdline",
         },
         on_clear = function() end,
       })
