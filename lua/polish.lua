@@ -24,10 +24,10 @@ vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | ex
 vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprev<CR>', { noremap = true })
 
 --? Move Lines Up & Down
--- vim.api.nvim_set_keymap('n', 'K', ":m .+1<CR>==", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', 'J', ":m .-2<CR>==", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', 'J', "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', 'K', "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'K', ":m .+1<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'J', ":m .-2<CR>==", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', 'J', "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', 'K', "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 

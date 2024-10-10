@@ -60,6 +60,13 @@ return {
           desc = "Close buffer from tabline",
         },
 
+        ["<Leader>th"] = {
+          function()
+            require("toggleterm").toggle()
+          end,
+          desc = "Open ToggleTerm",
+        },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
@@ -68,21 +75,12 @@ return {
         -- ["<C-S>"] = false,
       },
       i = {
-        -- Comment in insert mode with Ctrl+/
-        ["<C-_>"] = { "<Esc><cmd>lua require('Comment.api').toggle.linewise.current()<CR>a", desc = "Toggle comment in insert mode" },
 
+        -- ["<C-n>"] = { "<cmd>VMStart<CR>", desc = "Start Visual Multi mode" },
 
+        -- -- Change all occurrences
+        -- ["<C-n>c"] = { "<cmd>VMChange<CR>", desc = "Change all occurrences" },
 
-        ["<C-n>"] = { "<cmd>VMStart<CR>", desc = "Start Visual Multi mode" },
-
-        -- Select next occurrence
-        ["<C-n>n"] = { "<cmd>VMSelectNext<CR>", desc = "Select next occurrence" },
-
-        -- Select previous occurrence
-        ["<C-n>N"] = { "<cmd>VMSelectPrev<CR>", desc = "Select previous occurrence" },
-
-        -- Change all occurrences
-        ["<C-n>c"] = { "<cmd>VMChange<CR>", desc = "Change all occurrences" },
       },
     },
   },
