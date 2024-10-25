@@ -16,8 +16,8 @@ return {
 
   { import = "astrocommunity.color.transparent-nvim" },
 
-  { import = "astrocommunity.pack.rainbow-delimiter-indent-blankline" },
   { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.prisma" },
@@ -25,8 +25,9 @@ return {
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.rainbow-delimiter-indent-blankline" },
 
-  { import = "astrocommunity.lsp.ts-error-translator-nvim" },
+  -- { import = "astrocommunity.lsp.ts-error-translator-nvim" },
 
   { import = "astrocommunity.utility.mason-tool-installer-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },

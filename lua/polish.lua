@@ -21,7 +21,8 @@ vim.filetype.add {
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
 --? Shift buffers
-vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprev<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<S-Tab>', ':bnext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<S-Tab>', ':bnext<CR>', { noremap = true, silent = true })
 
 --? Move Lines Up & Down
 vim.api.nvim_set_keymap('n', 'K', ":m .+1<CR>==", { noremap = true, silent = true })
