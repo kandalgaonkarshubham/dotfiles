@@ -1,6 +1,9 @@
 ![NEOVIM](./cover.png)
 
-# AstroNvim Template
-**NOTE:** This is for AstroNvim v4+
+# NeoVim from Scratch
 
-A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+![playlist](https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn)
+
+# Telescope fzf
+
+![discussion](https://github.com/LazyVim/LazyVim/issues/2464)
