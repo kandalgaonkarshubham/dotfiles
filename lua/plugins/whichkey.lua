@@ -1,37 +1,39 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  opts = {
-    preset = "modern",
-    icons = {
-      group = "",
-      ellipsis = "",
-      breadcrumb = "",
-      mappings = true,
-    },
-    replace = {
-      ["<space>"] = "SPC",
-      ["<cr>"] = "RET",
-      ["<tab>"] = "TAB",
-    },
-    spec = {
-      { '<leader>c', group = ' [C]ode', mode = { 'n', 'x' } },
-      { '<leader>d', group = '󰧮 [D]ocument' },
-      -- { '<leader>r', group = '󰑕 [R]ename' },
-      -- { '<leader>w', group = ' [W]orkspace' },
-      { '<leader>t', group = ' [T]oggle', mode = { 'n', 'x' } },
-      { '<leader>g', group = ' [G]it', mode = { 'n', 'x' } },
-      { '<leader>f', group = ' [F]ind', mode = { 'n', 'x' } },
-      { '<leader>h', group = '󰋖 [h]elp', mode = { 'n', 'x' } },
-    }
-  },
-  keys = {
-    {
-      "<leader>hk",
-      function()
-        require("which-key").show({ global = false })
-      end,
-      desc = "[k]eymaps",
-    },
-  },
+  config = function()
+    local wk = require("which-key")
+    wk.setup({
+      preset = "modern",
+      icons = {
+        group = "",
+        ellipsis = "",
+        breadcrumb = "",
+        mappings = true,
+      },
+      replace = {
+        ["<space>"] = "󱁐",
+        ["<cr>"] = "󰌑",
+        ["<tab>"] = "",
+      },
+    })
+    wk.add({
+      { "<leader>c", group = " [c]ode" },
+
+      { "<leader>b", group = " [b]uffer" },
+
+      { "<leader>d", group = "󰧮 [d]ocument" },
+
+      { "<leader>r", group = "󰑕 [r]ename" },
+
+      { "<leader>f", group = " [f]ind" },
+
+      { "<leader>g", group = " [g]it" },
+
+      { "<leader>t", group = " [t]oggle" },
+
+      { "<leader>h", group = "󰋖 [h]elp" },
+      { "<leader>hk", "<cmd>lua require('which-key').show({ global = false })<CR>", desc = "[k]eymaps", mode = { "n" } },
+    })
+  end
 }

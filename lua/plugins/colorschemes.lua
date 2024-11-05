@@ -16,6 +16,20 @@ return {
       -- [[ Set the BufferLine background ]]
       local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
       vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg_color })
+
+      -- [[ Check colorscheme ]]
+      if vim.g.colors_name == "catppuccin-mocha" then
+        require("catppuccin").setup({
+          integrations = {
+            noice = false,
+            mason = true,
+            which_key = true,
+            indent_blankline = {
+              colored_indent_levels = true,
+            },
+          }
+        })
+      end
     end
   },
 }

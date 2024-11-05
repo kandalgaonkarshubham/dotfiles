@@ -8,8 +8,8 @@ return {
     "MunifTanjim/nui.nvim",
   },
   keys = {
-    { '<leader>tn', ':Neotree toggle<CR>', desc = 'Toggle [n]eoTree', silent = true },
-    { '<leader>tf', ':Neotree focus<CR>', desc = 'Toggle [f]ocus between NeoTree & Buffer', silent = true }
+    { '<leader>e', ':Neotree toggle<CR>', desc = 'Toggle [e]xplorer', silent = true },
+    { '<leader>o', ':Neotree focus<CR>', desc = 'Toggle f[o]cus between Explorer & Buffer', silent = true }
   },
   opts = {
     filesystem = {

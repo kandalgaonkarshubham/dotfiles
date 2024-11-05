@@ -54,42 +54,37 @@ vim.opt.timeoutlen = 300
 --! [[ Nerd Font ]]
 vim.g.have_nerd_font = true
 
-
 --? [[ Show Alpha on Empty Buffer ]]
--- vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "BDeletePre *",
--- 	group = "alpha_on_empty",
--- 	callback = function()
--- 		local bufnr = vim.api.nvim_get_current_buf()
--- 		local name = vim.api.nvim_buf_get_name(bufnr)
+vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
+vim.api.nvim_create_autocmd(
+  "BufDelete",
+  {
+    pattern = "",
+    group = "alpha_on_empty",
+    callback = function(args)
+      local buffers = vim.api.nvim_list_bufs()
+      local user_buffers = {}
 
--- 		if name == "" then
---       vim.cmd([[:Alpha | bd#]])
--- 		end
--- 	end,
--- })
+      for _, buf in ipairs(buffers) do
+        -- Only consider listed buffers that are normal files
+        if vim.api.nvim_buf_get_option(buf, 'buflisted') and
+           vim.api.nvim_buf_get_option(buf, 'buftype') == "" then
+          table.insert(user_buffers, buf)
+        end
+      end
 
--- vim.api.nvim_create_autocmd("User", {
+      -- print(#user_buffers) -- Print the count of user buffers
 
---   -- stuff....
-
---   callback = function()
---     if fallback_on_empty then
---       local ok, _ = pcall(require, "neo-tree")
-
---       if not ok then
---         vim.cmd("packadd neo-tree")
---         -- Use the latest recommended approach to handle Neotree. See the docs for info:
---         -- https://github.com/nvim-neo-tree/neo-tree.nvim/blob/ab8ca9fac52949d7a741b538c5d9c3898cd0f45a/doc/neo-tree.txt#L140
---         vim.cmd("Neotree close")
---       end
-
---       vim.cmd("Alpha")
---       vim.cmd(event.buf .. "bwipeout")
---     end
---   end,
--- })
+      if #user_buffers == 1 then  -- Check If there is only one user buffer and if its empty
+        if buffer_name == "" then
+          vim.defer_fn(function()
+            vim.cmd("Alpha")
+          end, 50)
+        end
+      end
+    end,
+  }
+)
 
 --? [[ Replace ~ in Alpha ]]
 vim.api.nvim_create_autocmd("FileType", {
@@ -98,6 +93,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.fillchars:append { eob = " " }
   end,
 })
+
 
 --* Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
