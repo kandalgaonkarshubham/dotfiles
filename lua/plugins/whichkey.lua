@@ -20,15 +20,17 @@ return {
     wk.add({
       { "<leader>c", group = " [c]ode" },
 
-      { "<leader>b", group = " [b]uffer" },
-
       { "<leader>d", group = "󰧮 [d]ocument" },
+
+      { "<leader>b", group = " [b]uffer" },
 
       { "<leader>r", group = "󰑕 [r]ename" },
 
       { "<leader>f", group = " [f]ind" },
 
       { "<leader>g", group = " [g]it" },
+
+      { "<leader>s", group = " [s]ession" },
 
       { "<leader>t", group = " [t]oggle" },
 

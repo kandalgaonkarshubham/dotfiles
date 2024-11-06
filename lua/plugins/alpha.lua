@@ -32,7 +32,7 @@ return {
         [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
         [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
         [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-      }
+      },
     },
     math.randomseed(os.time())
     local random_header = headers[math.random(#headers)]
@@ -44,7 +44,7 @@ return {
       dashboard.button("N", " " .. " New file", [[<cmd> ene <BAR> startinsert <cr>]]),
       dashboard.button("F", " " .. " Find File", [[<cmd> Telescope find_files <cr>]]),
       dashboard.button("R", " " .. " Recent Files", [[<cmd> Telescope oldfiles <cr>]]),
-      dashboard.button("L", "󰑙 " .. " Load Last Session", [[<cmd> lua require("resession").load("last") <cr>]]),
+      dashboard.button("L", "󰑙 " .. " Load last Session", [[<cmd> SessionRestore <cr>]]),
       dashboard.button("V", " " .. " Configure NeoVim", [[<cmd> lua vim.cmd('cd ' .. vim.fn.stdpath('config')) <cr>]]),
       dashboard.button("Q", " " .. " Quit", "<cmd> qa <cr>"),
     }

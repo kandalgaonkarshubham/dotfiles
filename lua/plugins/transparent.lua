@@ -4,7 +4,7 @@ return {
     require("transparent").setup({
       extra_groups = {
         -- Tabline
-        "Winbar", "WinbarNC", "NormalFloat", "FloatBorder",
+        "Winbar", "WinbarNC", "NormalFloat", "FloatBorder", "Folded",
         -- Telescope
         "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
         -- Lualine

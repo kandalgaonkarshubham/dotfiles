@@ -4,7 +4,7 @@ return {
   event = "VeryLazy",
   version = "*",
   opts = {
-    open_mapping = [[<c-\>]],
+    open_mapping = [[<c-`>]],
     size = 20,
   }
 }

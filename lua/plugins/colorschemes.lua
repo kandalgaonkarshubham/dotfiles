@@ -4,13 +4,14 @@ return {
   { "shaunsingh/nord.nvim", priority = 1000 },
   { "olivercederborg/poimandres.nvim", priority = 1000 },
   { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
+  { "mhartington/oceanic-next" },
   { "jay-babu/colorscheme-randomizer.nvim",
     event = "VimEnter",
     config = function()
       require("colorscheme-randomizer").setup({
         apply_scheme = true,
         plugin_strategy = "lazy",
-        colorschemes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night" },
+        colorschemes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" },
         exclude_colorschemes = nil,
       })
       -- [[ Set the BufferLine background ]]

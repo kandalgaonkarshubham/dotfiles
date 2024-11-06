@@ -48,6 +48,9 @@ return {
         lualine_b = { 'filename', 'branch', 'fileformat', 'encoding' },
         lualine_c = {
           '%=', --[[ add your center compoentnts here in place of this comment ]]
+          -- function()
+          --   return require('auto-session.lib').current_session_name(true)
+          -- end,
         },
         lualine_x = { "diagnostics", get_attached_clients },
         lualine_y = { 'filetype', 'progress' },
