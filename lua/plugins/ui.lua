@@ -231,7 +231,7 @@ return {
           color_icons = true,
         },
       })
-      vim.keymap.set("n", "<leader>c", ":bd<CR>", { noremap = true, silent = true, desc = '[c]lose a buffer' })
+      vim.keymap.set("n", "<leader>q", ":bd<CR>", { noremap = true, silent = true, desc = '[q]uit a buffer' })
       vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = '[w]rite a buffer' })
 
       vim.keymap.set('n', '<Leader>bp', ':BufferLinePick<CR>', { silent = true ,desc = '[p]ick a buffer' })
