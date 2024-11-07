@@ -102,6 +102,20 @@ return {
       require("telescope").load_extension("ui-select")
     end
   },
+  {
+    "akinsho/toggleterm.nvim",
+    lazy = true,
+    cmd = "ToggleTerm",
+    version = "*",
+    opts = {
+      open_mapping = [[<c-\>]],
+    },
+    vim.keymap.set('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<CR>', { desc = 'Toggle [h]orizontal terminal' })
+  },
+  {
+    "gennaro-tedesco/nvim-peekup",
+    cmd = "PeekupOpen",
+  },
   --!! Workflow --
   {
     "tris203/precognition.nvim",
@@ -114,12 +128,17 @@ return {
   {
     "m4xshen/hardtime.nvim",
     lazy = true,
+    event = "VimEnter",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {}
   },
   {
     "rmagatti/auto-session",
-    lazy = false,
+    cmd = {
+      "SessionSave",
+      "SessionRestore",
+      "SessionSearch",
+    },
     keys = {
       { '<leader>ss', '<cmd>SessionSave<CR>', desc = "[s]ave Session" },
       { '<leader>sr', '<cmd>SessionRestore<CR>', desc = "[r]estore Session" },

@@ -86,9 +86,7 @@ return {
     version = "*",
     event = "BufRead",
     config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
+      require("nvim-surround").setup({})
     end
   },
   {
@@ -103,7 +101,8 @@ return {
     opts = {
       -- context = 10, -- amount of lines we will try to show around the current line
       -- exclude = {}, -- exclude these filetypes
-    }
+    },
+    vim.keymap.set('n', '<Leader>tw', '<cmd>Twilight<CR>', { desc = 'Toggle t[w]ilight' })
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
@@ -113,16 +112,4 @@ return {
       require('ts_context_commentstring').setup {}
     end,
   },
-  {
-    "akinsho/toggleterm.nvim",
-    lazy = true,
-    event = "VeryLazy",
-    version = "*",
-    opts = {
-      open_mapping = [[<c-`>]],
-      size = 20,
-    }
-  },
-  { "gennaro-tedesco/nvim-peekup" },
-
 }

@@ -9,6 +9,7 @@ vim.g.maplocalleader = " "
 
 --! [[ Line Numbers ]]
 vim.opt.number = true
+vim.opt.relativenumber = true
 
 --! [[ Line Wrap ]]
 vim.opt.wrap = true
@@ -54,18 +55,6 @@ vim.opt.timeoutlen = 300
 --! [[ Nerd Font ]]
 vim.g.have_nerd_font = true
 
---! [[ Open the file under the cursor ]]
-local function open_file_under_cursor()
-  local word = vim.fn.expand("<cfile>")
-  if vim.fn.filereadable(word) == 1 then
-    vim.cmd("edit " .. word)
-  else
-    print("File not found: " .. word)
-  end
-end
-vim.api.nvim_set_keymap("n", "gF", "<cmd>lua open_file_under_cursor()<CR>", { noremap = true, silent = true })
-
-
 --! [[ Code Folding ]]
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -75,6 +64,7 @@ vim.o.foldlevel = 99
 vim.opt.foldtext = ""
 -- vim.opt.foldnestmax = 4
 -- vim.cmd([[ set nofoldenable]]) -- vim.opt.nofoldenable = true
+
 
 --? [[ Show Alpha on Empty Buffer ]]
 vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
@@ -126,5 +116,13 @@ vim.api.nvim_set_keymap('v', '<S-Tab>', ':bnext<CR>', { noremap = true, silent =
 vim.api.nvim_set_keymap('n', 'K', ":m .+1<CR>==", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'J', ":m .-2<CR>==", { noremap = true, silent = true })
 
---* Keymap to close the current buffer
-vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = true, silent = true })
+--* [[ Open the file under the cursor ]]
+local function open_file_under_cursor()
+  local word = vim.fn.expand("<cfile>")
+  if vim.fn.filereadable(word) == 1 then
+    vim.cmd("edit " .. word)
+  else
+    print("File not found: " .. word)
+  end
+end
+vim.api.nvim_set_keymap("n", "gF", "<cmd>lua open_file_under_cursor()<CR>", { noremap = true, silent = true })
