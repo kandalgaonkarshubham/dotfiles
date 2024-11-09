@@ -263,14 +263,16 @@ return {
         local client_names = {}
         for _, client in pairs(buf_clients) do
           if client.name ~= "copilot" and client.name ~= "null-ls" then
-            table.insert(client_names, capitalize(client.name))
+            -- table.insert(client_names, capitalize(client.name))
+            table.insert(client_names, client.name)
           end
         end
         local null_ls = require("null-ls")
         local sources = null_ls.get_sources()
         for _, source in ipairs(sources) do
           if source.filetypes[buf_ft] then
-            table.insert(client_names, capitalize(source.name))
+            -- table.insert(client_names, capitalize(source.name))
+            table.insert(client_names, source.name)
           end
         end
         local unique_client_names = {}
@@ -377,6 +379,9 @@ return {
   {
     "rcarriga/nvim-notify",
     event = "VimEnter",
+    keys = {
+      { "<leader>nh", "<cmd>Notifications<cr>", desc = "[n]otifications [h]istory" },
+    },
     config = function()
       require("notify").setup({
         timeout = 2000,

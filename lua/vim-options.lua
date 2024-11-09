@@ -96,14 +96,8 @@ vim.api.nvim_create_autocmd(
   }
 )
 
---? [[ Replace ~ in Alpha ]]
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "alpha",
-  callback = function()
-    vim.opt_local.fillchars:append { eob = " " }
-  end,
-})
-
+--? [[ Replace ~ ]]
+vim.opt.fillchars = { eob = " " }
 
 --* Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]

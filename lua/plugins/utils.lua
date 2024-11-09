@@ -130,7 +130,12 @@ return {
     lazy = true,
     event = "VimEnter",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
-    opts = {}
+    opts = {
+      disabled_keys = {
+        ["<Left>"] = { "n", "x" },
+        ["<Right>"] = { "n", "x" },
+      },
+    }
   },
   {
     "rmagatti/auto-session",
