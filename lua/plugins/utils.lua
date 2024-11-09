@@ -72,13 +72,12 @@ return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
     dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find [f]iles' })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live [g]rep' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'List [b]uffers' })
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[h]elp Tags' })
-    end,
+    keys = {
+      { "<leader>ff", "<cmd>require('telescope.builtin').find_files<cr>", desc = "Find [f]iles" },
+      { "<leader>fg", "<cmd>require('telescope.builtin').live_grep<cr>", desc = "Live [g]rep" },
+      { "<leader>fb", "<cmd>require('telescope.builtin').buffers<cr>", desc = "List [b]uffers" },
+      { "<leader>fh", "<cmd>require('telescope.builtin').help_tags<cr>", desc = "[h]elp Tags" },
+    },
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",

@@ -114,6 +114,9 @@ return {
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
     },
+    keys = {
+      { "<leader>df", "<cmd>vim.lsp.buf.format<CR>", desc = "[f]ormat Document" },
+    },
     config = function()
       local augroup = vim.api.nvim_create_augroup("LspAutoFormatting", {})
       local null_ls = require("null-ls")
@@ -136,7 +139,6 @@ return {
           end
         end,
       })
-      vim.keymap.set("n", "<leader>df", vim.lsp.buf.format, { desc = "[f]ormat Document" })
     end
   },
 }

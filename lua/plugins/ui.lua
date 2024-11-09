@@ -394,6 +394,9 @@ return {
   },
   {
     "xiyaowong/transparent.nvim",
+    keys = {
+      { "<leader>tt", "<cmd>TransparentToggle<cr>", desc = "[t]oggle [t]ransparency" },
+    },
     config = function()
       require("transparent").setup({
         extra_groups = {
@@ -416,7 +419,6 @@ return {
         },
         on_clear = function() end,
       })
-      vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<CR>", { desc = "[t]oggle Transparent Mode" })
     end,
   },
   {

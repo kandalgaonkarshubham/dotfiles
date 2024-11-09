@@ -102,6 +102,7 @@ vim.api.nvim_create_autocmd(
 --? [[ Replace ~ ]]
 vim.opt.fillchars = { eob = " " }
 
+
 --* Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
@@ -114,12 +115,12 @@ vim.api.nvim_set_keymap('n', 'K', ":m .+1<CR>==", { noremap = true, silent = tru
 vim.api.nvim_set_keymap('n', 'J', ":m .-2<CR>==", { noremap = true, silent = true })
 
 --* [[ Open the file under the cursor ]]
-local function open_file_under_cursor()
-  local word = vim.fn.expand("<cfile>")
-  if vim.fn.filereadable(word) == 1 then
-    vim.cmd("edit " .. word)
-  else
-    print("File not found: " .. word)
-  end
-end
-vim.api.nvim_set_keymap("n", "gF", "<cmd>lua open_file_under_cursor()<CR>", { noremap = true, silent = true })
+-- local function open_file_under_cursor()
+--   local word = vim.fn.expand("<cfile>")
+--   if vim.fn.filereadable(word) == 1 then
+--     vim.cmd("edit " .. word)
+--   else
+--     print("File not found: " .. word)
+--   end
+-- end
+-- vim.api.nvim_set_keymap("n", "gF", "<cmd>lua open_file_under_cursor()<CR>", { noremap = true, silent = true })
