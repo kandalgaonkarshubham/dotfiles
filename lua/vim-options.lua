@@ -65,6 +65,9 @@ vim.opt.foldtext = ""
 -- vim.opt.foldnestmax = 4
 -- vim.cmd([[ set nofoldenable]]) -- vim.opt.nofoldenable = true
 
+--! [[ For nvim-notify ]]
+vim.opt.termguicolors = true
+
 
 --? [[ Show Alpha on Empty Buffer ]]
 vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })

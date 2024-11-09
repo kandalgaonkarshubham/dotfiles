@@ -70,8 +70,6 @@ return {
   --!! Telescope --
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
-    event = "VeryLazy",
     tag = "0.1.8",
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
@@ -104,13 +102,14 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    lazy = true,
     cmd = "ToggleTerm",
     version = "*",
     opts = {
       open_mapping = [[<c-\>]],
     },
-    vim.keymap.set('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<CR>', { desc = 'Toggle [h]orizontal terminal' })
+    keys = {
+      { '<leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<CR>', desc = 'Toggle [h]orizontal terminal' }
+    }
   },
   {
     "gennaro-tedesco/nvim-peekup",
@@ -119,7 +118,6 @@ return {
   --!! Workflow --
   {
     "tris203/precognition.nvim",
-    lazy = true,
     event = "BufRead",
     opts = {
       highlightColor = { fg = "#8a8583" },
@@ -127,8 +125,6 @@ return {
   },
   {
     "m4xshen/hardtime.nvim",
-    lazy = true,
-    event = "VimEnter",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {
       disabled_keys = {

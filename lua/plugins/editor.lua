@@ -1,7 +1,6 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
     dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
     build = ":TSUpdate",
     config = function()
@@ -28,7 +27,6 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
     main = "ibl",
     opts = {
       indent = {
@@ -38,7 +36,6 @@ return {
   },
   {
     "NvChad/nvim-colorizer.lua",
-    lazy = true,
     event = "BufRead",
     config = function()
       require("colorizer").setup {}
@@ -98,15 +95,17 @@ return {
   },
   {
     "folke/twilight.nvim",
+    event = "BufRead",
     opts = {
       -- context = 10, -- amount of lines we will try to show around the current line
       -- exclude = {}, -- exclude these filetypes
     },
-    vim.keymap.set('n', '<Leader>tw', '<cmd>Twilight<CR>', { desc = 'Toggle t[w]ilight' })
+    keys = {
+      { "<leader>tw", "<cmd>Twilight<cr>", desc = "Toggle t[w]ilight" },
+    },
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
     event = "BufRead",
     config = function()
       require('ts_context_commentstring').setup {}

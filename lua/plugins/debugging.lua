@@ -2,7 +2,6 @@ if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 return {
   "mfussenegger/nvim-dap",
-  lazy = true,
   event = "VeryLazy",
   dependencies = {
     "rcarriga/nvim-dap-ui",

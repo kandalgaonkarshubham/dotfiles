@@ -6,7 +6,6 @@ return {
   { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
   { "mhartington/oceanic-next" },
   { "jay-babu/colorscheme-randomizer.nvim",
-    event = "VimEnter",
     config = function()
       require("colorscheme-randomizer").setup({
         apply_scheme = true,
@@ -15,8 +14,8 @@ return {
         exclude_colorschemes = nil,
       })
       -- [[ Set the BufferLine background ]]
-      local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
-      vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg_color })
+      -- local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
+      -- vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg_color })
 
       -- [[ Check colorscheme ]]
       if vim.g.colors_name == "catppuccin-mocha" then

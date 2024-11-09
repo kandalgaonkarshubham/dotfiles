@@ -208,47 +208,53 @@ return {
       },
     },
   },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   event = "BufRead",
+  --   version = "*",
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   config = function()
+  --     vim.opt.termguicolors = true
+  --     require("bufferline").setup({
+  --       options = {
+  --         themable = true,
+  --         offsets = {
+  --           {
+  --             filetype = "neo-tree",
+  --             text = "File Explorer",
+  --             separator = true,
+  --             text_align = "left",
+  --           },
+  --         },
+  --         diagnostics = "nvim_lsp",
+  --         separator_style = { "", "" },
+  --         color_icons = true,
+  --       },
+  --     })
+  --     vim.keymap.set("n", "<leader>q", ":bd<CR>", { noremap = true, silent = true, desc = '[q]uit a buffer' })
+  --     vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = '[w]rite a buffer' })
+
+  --     vim.keymap.set('n', '<Leader>bp', ':BufferLinePick<CR>', { silent = true ,desc = '[p]ick a buffer' })
+
+  --     vim.keymap.set('n', '<Leader>b[', ':BufferLineCyclePrev<CR>', { silent = true ,desc = 'Move to the PREV buffer' })
+  --     vim.keymap.set('n', '<Leader>b]', ':BufferLineCycleNext<CR>', { silent = true ,desc = 'Move to the NEXT buffer' })
+
+  --     vim.keymap.set('n', '<Leader>b<', ':BufferLineMovePrev<CR>', { silent = true ,desc = 'Move buffer to the LEFT' })
+  --     vim.keymap.set('n', '<Leader>b>', ':BufferLineMoveNext<CR>', { silent = true ,desc = 'Move buffer to the RIGHT' })
+
+  --     vim.keymap.set('n', '<Leader>bc', ':BufferLinePickClose<CR>', { silent = true ,desc = 'Pick a buffer to [c]lose' })
+  --     vim.keymap.set('n', '<Leader>bo', ':BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>', { silent = true ,desc = 'Close all buffers except the current [o]ne' })
+  --   end,
+  -- },
   {
-    "akinsho/bufferline.nvim",
-    event = "BufRead",
-    version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      vim.opt.termguicolors = true
-      require("bufferline").setup({
-        options = {
-          themable = true,
-          offsets = {
-            {
-              filetype = "neo-tree",
-              text = "File Explorer",
-              separator = true,
-              text_align = "left",
-            },
-          },
-          diagnostics = "nvim_lsp",
-          separator_style = { "", "" },
-          color_icons = true,
-        },
-      })
-      vim.keymap.set("n", "<leader>q", ":bd<CR>", { noremap = true, silent = true, desc = '[q]uit a buffer' })
-      vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = '[w]rite a buffer' })
-
-      vim.keymap.set('n', '<Leader>bp', ':BufferLinePick<CR>', { silent = true ,desc = '[p]ick a buffer' })
-
-      vim.keymap.set('n', '<Leader>b[', ':BufferLineCyclePrev<CR>', { silent = true ,desc = 'Move to the PREV buffer' })
-      vim.keymap.set('n', '<Leader>b]', ':BufferLineCycleNext<CR>', { silent = true ,desc = 'Move to the NEXT buffer' })
-
-      vim.keymap.set('n', '<Leader>b<', ':BufferLineMovePrev<CR>', { silent = true ,desc = 'Move buffer to the LEFT' })
-      vim.keymap.set('n', '<Leader>b>', ':BufferLineMoveNext<CR>', { silent = true ,desc = 'Move buffer to the RIGHT' })
-
-      vim.keymap.set('n', '<Leader>bc', ':BufferLinePickClose<CR>', { silent = true ,desc = 'Pick a buffer to [c]lose' })
-      vim.keymap.set('n', '<Leader>bo', ':BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>', { silent = true ,desc = 'Close all buffers except the current [o]ne' })
-    end,
-  },
+    "leath-dub/snipe.nvim",
+    keys = {
+      {"<leader>b", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe [b]uffer menu"}
+    },
+    opts = {}
+  }
   {
     "nvim-lualine/lualine.nvim",
-    event = "VimEnter",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local function capitalize(str)
@@ -298,9 +304,6 @@ return {
           lualine_b = { 'filename', 'branch', 'fileformat', 'encoding' },
           lualine_c = {
             '%=', --[[ add your center compoentnts here in place of this comment ]]
-            -- function()
-            --   return require('auto-session.lib').current_session_name(true)
-            -- end,
           },
           lualine_x = { "diagnostics", get_attached_clients },
           lualine_y = { 'filetype', 'progress' },
@@ -323,8 +326,7 @@ return {
   },
   {
     "folke/noice.nvim",
-    lazy = true,
-    event = "VimEnter",
+    event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -378,7 +380,6 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    event = "VimEnter",
     keys = {
       { "<leader>nh", "<cmd>Notifications<cr>", desc = "[n]otifications [h]istory" },
     },
