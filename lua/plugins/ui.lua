@@ -252,7 +252,7 @@ return {
       {"<leader>b", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe [b]uffer menu"}
     },
     opts = {}
-  }
+  },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
