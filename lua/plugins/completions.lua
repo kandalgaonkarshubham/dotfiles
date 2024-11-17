@@ -1,3 +1,5 @@
+-- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
   --! LSP -------------------------------------------------------------
   {
@@ -70,6 +72,9 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
       "mlaursen/vim-react-snippets",
+      "hrsh7th/cmp-buffer", -- for buffer completion
+      "hrsh7th/cmp-path", -- for path completion
+      "hrsh7th/cmp-cmdline", -- for cmdline completion
     },
     config = function()
       require("vim-react-snippets").lazy_load()
@@ -103,6 +108,26 @@ return {
           { name = 'luasnip' },
         }, {
           { name = 'buffer' },
+          { name = 'path' },
+        })
+      })
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            }
+          }
         })
       })
     end

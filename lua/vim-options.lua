@@ -1,3 +1,6 @@
+--! [[ NeoVim Startup Optimization]]
+vim.loader.enable()
+
 --! [[ File Encoding ]]
 vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"

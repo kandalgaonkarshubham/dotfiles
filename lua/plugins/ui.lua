@@ -1,3 +1,5 @@
+-- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
   {
     "goolord/alpha-nvim",
@@ -45,7 +47,6 @@ return {
         dashboard.button("N", " " .. " New file", [[<cmd> ene <BAR> startinsert <cr>]]),
         dashboard.button("F", " " .. " Find File", [[<cmd> Telescope find_files <cr>]]),
         dashboard.button("R", " " .. " Recent Files", [[<cmd> Telescope oldfiles <cr>]]),
-        dashboard.button("L", "󰑙 " .. " Load last Session", [[<cmd> SessionRestore <cr>]]),
         dashboard.button("V", " " .. " Configure NeoVim", [[<cmd> lua vim.cmd('cd ' .. vim.fn.stdpath('config')) <cr>]]),
         dashboard.button("Q", " " .. " Quit", "<cmd> qa <cr>"),
       }
@@ -55,7 +56,9 @@ return {
         local plugin_count = lazy_stats.count
         local loaded_plugins = lazy_stats.loaded
         local load_time = lazy_stats.startuptime
-        dashboard.section.footer.val = string.format("⚡ Neovim loaded %d/%d plugins in %.0fms", loaded_plugins, plugin_count, load_time)
+        local message = string.format("⚡ Neovim loaded %d/%d plugins in %.0fms", loaded_plugins, plugin_count, load_time)
+        require("notify")(message, "info")
+        dashboard.section.footer.val = require("fortune").get_fortune()
         pcall(vim.cmd.AlphaRedraw)
       end
 
@@ -208,87 +211,59 @@ return {
       },
     },
   },
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = "BufRead",
-  --   version = "*",
-  --   dependencies = 'nvim-tree/nvim-web-devicons',
-  --   config = function()
-  --     vim.opt.termguicolors = true
-  --     require("bufferline").setup({
-  --       options = {
-  --         themable = true,
-  --         offsets = {
-  --           {
-  --             filetype = "neo-tree",
-  --             text = "File Explorer",
-  --             separator = true,
-  --             text_align = "left",
-  --           },
-  --         },
-  --         diagnostics = "nvim_lsp",
-  --         separator_style = { "", "" },
-  --         color_icons = true,
-  --       },
-  --     })
-  --     vim.keymap.set("n", "<leader>q", ":bd<CR>", { noremap = true, silent = true, desc = '[q]uit a buffer' })
-  --     vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = '[w]rite a buffer' })
-
-  --     vim.keymap.set('n', '<Leader>bp', ':BufferLinePick<CR>', { silent = true ,desc = '[p]ick a buffer' })
-
-  --     vim.keymap.set('n', '<Leader>b[', ':BufferLineCyclePrev<CR>', { silent = true ,desc = 'Move to the PREV buffer' })
-  --     vim.keymap.set('n', '<Leader>b]', ':BufferLineCycleNext<CR>', { silent = true ,desc = 'Move to the NEXT buffer' })
-
-  --     vim.keymap.set('n', '<Leader>b<', ':BufferLineMovePrev<CR>', { silent = true ,desc = 'Move buffer to the LEFT' })
-  --     vim.keymap.set('n', '<Leader>b>', ':BufferLineMoveNext<CR>', { silent = true ,desc = 'Move buffer to the RIGHT' })
-
-  --     vim.keymap.set('n', '<Leader>bc', ':BufferLinePickClose<CR>', { silent = true ,desc = 'Pick a buffer to [c]lose' })
-  --     vim.keymap.set('n', '<Leader>bo', ':BufferLineCloseLeft<CR>:BufferLineCloseRight<CR>', { silent = true ,desc = 'Close all buffers except the current [o]ne' })
-  --   end,
-  -- },
   {
     "leath-dub/snipe.nvim",
     keys = {
-      {"<leader>b", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe [b]uffer menu"}
+      { "\\", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe [b]uffer menu" },
+      { "<leader>q", ":bd<CR>", desc = '[q]uit a buffer', silent = true },
+      { "<leader>w", ":w<CR>", desc = '[w]rite a buffer', silent = true },
+      { '<leader>bn', ':enew<CR>', desc = '[n]ew buffer', silent = true }
     },
-    opts = {}
+    opts = {
+      ui = {
+        position = "center",
+        open_win_override = {
+          border = "rounded",
+        },
+      }
+    }
   },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local function capitalize(str)
-        return (str:gsub("^%l", string.upper))
-      end
-      local function get_attached_clients()
-        local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
-        if #buf_clients == 0 then
-          return "LSP Inactive"
-        end
-        local buf_ft = vim.bo.filetype
-        local client_names = {}
-        for _, client in pairs(buf_clients) do
-          if client.name ~= "copilot" and client.name ~= "null-ls" then
-            -- table.insert(client_names, capitalize(client.name))
-            table.insert(client_names, client.name)
-          end
-        end
-        local null_ls = require("null-ls")
-        local sources = null_ls.get_sources()
-        for _, source in ipairs(sources) do
-          if source.filetypes[buf_ft] then
-            -- table.insert(client_names, capitalize(source.name))
-            table.insert(client_names, source.name)
-          end
-        end
-        local unique_client_names = {}
-        for _, client_name in ipairs(client_names) do
-          if not vim.tbl_contains(unique_client_names, client_name) then
-            table.insert(unique_client_names, client_name)
-          end
-        end
-        return table.concat(unique_client_names, " | ")
-      end
+      -- local function capitalize(str)
+      --   return (str:gsub("^%l", string.upper))
+      -- end
+      -- local function get_attached_clients()
+      --   local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+      --   if #buf_clients == 0 then
+      --     return "LSP Inactive"
+      --   end
+      --   local buf_ft = vim.bo.filetype
+      --   local client_names = {}
+      --   for _, client in pairs(buf_clients) do
+      --     if client.name ~= "copilot" and client.name ~= "null-ls" then
+      --       -- table.insert(client_names, capitalize(client.name))
+      --       table.insert(client_names, client.name)
+      --     end
+      --   end
+      --   local null_ls = require("null-ls")
+      --   local sources = null_ls.get_sources()
+      --   for _, source in ipairs(sources) do
+      --     if source.filetypes[buf_ft] then
+      --       -- table.insert(client_names, capitalize(source.name))
+      --       table.insert(client_names, source.name)
+      --     end
+      --   end
+      --   local unique_client_names = {}
+      --   for _, client_name in ipairs(client_names) do
+      --     if not vim.tbl_contains(unique_client_names, client_name) then
+      --       table.insert(unique_client_names, client_name)
+      --     end
+      --   end
+      --   return table.concat(unique_client_names, " | ")
+      -- end
       local auto_theme_custom = require('lualine.themes.auto')
       auto_theme_custom.normal.c.bg = '#292c3c80'
       auto_theme_custom.normal.c.fg = '#89b4fa'
@@ -305,7 +280,7 @@ return {
           lualine_c = {
             '%=', --[[ add your center compoentnts here in place of this comment ]]
           },
-          lualine_x = { "diagnostics", get_attached_clients },
+          lualine_x = { "diagnostics" }, -- get_attached_clients
           lualine_y = { 'filetype', 'progress' },
           lualine_z = {
             { 'location', separator = { right = '' }, left_padding = 2 },
@@ -390,35 +365,7 @@ return {
         background_colour = "#000000",
         render = "wrapped-compact",
       })
-    end,
-  },
-  {
-    "xiyaowong/transparent.nvim",
-    keys = {
-      { "<leader>tt", "<cmd>TransparentToggle<cr>", desc = "[t]oggle [t]ransparency" },
-    },
-    config = function()
-      require("transparent").setup({
-        extra_groups = {
-          -- Tabline
-          "Winbar", "WinbarNC", "NormalFloat", "FloatBorder", "Folded",
-          -- Telescope
-          "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
-          -- Lualine
-          "lualine_c_inactive", "lualine_c_insert", "lualine_c_visual", "lualine_c_command", "lualine_c_replace",
-          -- NeoTree
-          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
-          -- WhichKey
-          "WhichKey", "WhichKeyNormal","WhichKeyFloat", "WhichKeyTitle", "WhichKeyBorder", "MasonNormal", "LazyNormal",
-          -- Noice & Notify
-          "NoiceCmdline", "NotifyBackground", "MiniNotifyTitle", "NotifyTRACEBody", "NotifyDEBUGBody", "NotifyINFOBody", "NotifyWARNBody", "NotifyERRORBody", "NotifyDEBUGBorder", "NotifyTRACEBorder", "NotifyINFOBorder", "NotifyWARNBorder", "NotifyERRORBorder",
-          -- Lsps Misc
-          "LspInlayHint", "LspInfoBorder", "DiagnosticVirtualTextHint",
-          -- Bufferline
-          "BufferCurrent", "BufferCurrentMod", "BufferCurrentSign", "BufferCurrentTarget", "BufferCurrentIndex", "BufferTabpageFill", "BufferLineFill", "Tabline", "TablineFill",
-        },
-        on_clear = function() end,
-      })
+      vim.notify = require("notify")
     end,
   },
   {

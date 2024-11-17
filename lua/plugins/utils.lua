@@ -1,3 +1,5 @@
+-- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
   --!! Git --
   {
@@ -81,7 +83,8 @@ return {
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    -- build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    build = 'make',
     config = function()
       require('telescope').load_extension('fzf')
     end
@@ -100,17 +103,6 @@ return {
     end
   },
   {
-    "akinsho/toggleterm.nvim",
-    cmd = "ToggleTerm",
-    version = "*",
-    opts = {
-      open_mapping = [[<c-\>]],
-    },
-    keys = {
-      { '<leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<CR>', desc = 'Toggle [h]orizontal terminal' }
-    }
-  },
-  {
     "gennaro-tedesco/nvim-peekup",
     cmd = "PeekupOpen",
   },
@@ -124,34 +116,23 @@ return {
   },
   {
     "m4xshen/hardtime.nvim",
+    event = "BufRead",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {
       disabled_keys = {
+        ["<Up>"] = { "n", "x" },
+        ["<Down>"] = { "n", "x" },
         ["<Left>"] = { "n", "x" },
         ["<Right>"] = { "n", "x" },
       },
     }
   },
   {
-    "rmagatti/auto-session",
-    cmd = {
-      "SessionSave",
-      "SessionRestore",
-      "SessionSearch",
-    },
+    "hedyhli/outline.nvim",
+    cmd = { "Outline", "OutlineOpen" },
     keys = {
-      { '<leader>ss', '<cmd>SessionSave<CR>', desc = "[s]ave Session" },
-      { '<leader>sr', '<cmd>SessionRestore<CR>', desc = "[r]estore Session" },
-      { '<leader>sh', '<cmd>SessionSearch<CR>', desc = "searc[h] Session" },
-      { '<leader>sd', '<cmd>SessionDelete<CR>', desc = "[d]elete Session" },
-      { '<leader>sp', '<cmd>SessionPurgeOrphaned<CR>', desc = "[p]urge Orphaned Sessions" },
-      { '<leader>sa', '<cmd>SessionToggleAutoSave<CR>', desc = "Toggle Session [a]utosave" },
+      { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
     },
-    opts = {
-      suppressed_dirs = { '~/', '~/Web', '~/Downloads', '/' },
-      bypass_save_filetypes = { '', ' ', 'nofile', 'help', 'alpha', 'startify', 'dashboard', 'neo-tree' },
-      -- log_level = 'error',
-      auto_restore_enabled = false,
-    },
+    opts = {},
   },
 }

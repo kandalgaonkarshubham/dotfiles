@@ -1,3 +1,5 @@
+-- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -94,6 +96,13 @@ return {
     }
   },
   {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = "BufRead",
+    config = function()
+      require('ts_context_commentstring').setup {}
+    end,
+  },
+  {
     "folke/twilight.nvim",
     event = "BufRead",
     opts = {
@@ -103,12 +112,5 @@ return {
     keys = {
       { "<leader>tw", "<cmd>Twilight<cr>", desc = "Toggle t[w]ilight" },
     },
-  },
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "BufRead",
-    config = function()
-      require('ts_context_commentstring').setup {}
-    end,
   },
 }
