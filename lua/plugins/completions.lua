@@ -26,38 +26,28 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      -- local on_attach = function(client, bufnr)
-      --   local opts = { noremap = true, silent = true, buffer = bufnr }
-      --   keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-      --   keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-      --   keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-      --   keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-      --   keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-      --   keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-      --   keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
-      --   keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-      --   keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-      --   keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-      --   keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-      --   keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
-      -- end
-
       local lspconfig = require("lspconfig")
       local servers = { 'html', 'cssls', 'tailwindcss', 'ts_ls', 'prismals', 'jsonls', 'lua_ls' }
       for _, server in ipairs(servers) do
         lspconfig[server].setup({
           capabilities = capabilities,
-          -- on_attach = on_attach
         })
         lspconfig.emmet_language_server.setup({
           capabilities = capabilities,
           filetypes = { "css", "html", "javascript", "javascriptreact", "typescriptreact", "vue" },
         })
       end
-      vim.keymap.set('n', '<leader>ch', vim.lsp.buf.hover, { desc = 'LSP [h]over' })
-      vim.keymap.set('n', '<leader>cd', vim.lsp.buf.definition, { desc = 'LSP goto [d]efinition' })
-      vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { desc = 'LSP goto [r]eferences' })
-      vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP [c]ode [a]ction' })
+      vim.keymap.set('n', '<leader>cr', vim.lsp.buf.references, { noremap = true, silent = true, desc = 'Show [r]eferences' })
+      vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, { noremap = true, silent = true, desc = '[g]o to [D]eclaration' })
+      vim.keymap.set('n', '<leader>gf', vim.lsp.buf.definition, { noremap = true, silent = true, desc = 'Go to definition [f]ile' })
+      vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, { noremap = true, silent = true, desc = '[g]o to [i]mplementation' })
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, silent = true, desc = '[c]ode [a]ctions' })
+      vim.keymap.set('n', '<leader>cn', vim.lsp.buf.rename, { noremap = true, silent = true, desc = '[c]ode re[n]ame symbol' })
+      -- vim.keymap.set('n', '<leader>clD', vim.lsp.diagnostic.show_line_diagnostics, { noremap = true, silent = true, desc = '[l]ine [D]iagnostics' })
+      -- vim.keymap.set('n', '<leader>cd', vim.lsp.diagnostic.show_cursor_diagnostics, { noremap = true, silent = true, desc = '[c]ursor [d]iagnostics' })
+      -- vim.keymap.set('n', '<leader>c[d', vim.lsp.diagnostic.goto_prev, { noremap = true, silent = true, desc = 'Previous diagnostic' })
+      -- vim.keymap.set('n', '<leader>c]d', vim.lsp.diagnostic.goto_next, { noremap = true, silent = true, desc = 'Next diagnostic' })
+      vim.keymap.set('n', '<leader>ch', vim.lsp.buf.hover, { noremap = true, silent = true, desc = '[c]ode [h]over documentation' })
     end
   },
   --! COMPLETIONS -------------------------------------------------------------
@@ -72,9 +62,10 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
       "mlaursen/vim-react-snippets",
-      "hrsh7th/cmp-buffer", -- for buffer completion
-      "hrsh7th/cmp-path", -- for path completion
-      "hrsh7th/cmp-cmdline", -- for cmdline completion
+      "hrsh7th/cmp-buffer", -- buffer completion
+      "hrsh7th/cmp-path", -- path completion
+      "hrsh7th/cmp-cmdline", -- cmdline completion
+      "onsails/lspkind.nvim", -- pictograms
     },
     config = function()
       require("vim-react-snippets").lazy_load()
@@ -85,6 +76,7 @@ return {
     "hrsh7th/nvim-cmp",
     event = 'BufReadPost',
     config = function()
+      local lspkind = require('lspkind')
       local cmp = require('cmp')
       cmp.setup({
         snippet = {
@@ -106,10 +98,27 @@ return {
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          -- { name = 'codeium' },
         }, {
           { name = 'buffer' },
           { name = 'path' },
-        })
+        }),
+        -- lspkind
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = {
+              menu = 50,
+              abbr = 50,
+            },
+            ellipsis_char = '...',
+            -- symbol_map = { Codeium = "󱜚" },
+            show_labelDetails = true,
+            before = function (entry, vim_item)
+              return vim_item
+            end
+          })
+        },
       })
       cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
@@ -130,6 +139,7 @@ return {
           }
         })
       })
+
     end
   },
   --! FORMATTING -------------------------------------------------------------

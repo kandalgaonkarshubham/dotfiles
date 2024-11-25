@@ -47,6 +47,7 @@ return {
         dashboard.button("N", " " .. " New file", [[<cmd> ene <BAR> startinsert <cr>]]),
         dashboard.button("F", " " .. " Find File", [[<cmd> Telescope find_files <cr>]]),
         dashboard.button("R", " " .. " Recent Files", [[<cmd> Telescope oldfiles <cr>]]),
+        dashboard.button("L", "󰒲 " .. " Lazy", [[<cmd> Lazy <cr>]]),
         dashboard.button("V", " " .. " Configure NeoVim", [[<cmd> lua vim.cmd('cd ' .. vim.fn.stdpath('config')) <cr>]]),
         dashboard.button("Q", " " .. " Quit", "<cmd> qa <cr>"),
       }
@@ -90,36 +91,6 @@ return {
         }
       end
 
-      -- local function url_decode(str)
-      --   str = str:gsub("%%([0-9a-fA-F][0-9a-fA-F])", function(h)
-      --     return string.char(tonumber(h, 16))
-      --   end)
-      --   return str
-      -- end
-
-      -- local function session_exists()
-      --   local session_dir = vim.fn.stdpath("data") .. "/sessions/"
-      --   local cwd = vim.fn.getcwd()
-      --   local files = vim.fn.globpath(session_dir, "*.vim", 0, 1)
-
-      --   local session_found = false
-      --   for _, file in ipairs(files) do
-      --     local filename = file:sub(#session_dir + 1)  -- Get the part after the session_dir
-      --     local decoded_name = url_decode(filename:match("([^/]+)$"):gsub(".vim$", ""))  -- Extract and decode the filename
-
-      --     if decoded_name == cwd then
-      --       session_found = true
-      --       break
-      --     end
-      --   end
-
-      --   if session_found then
-      --     require("notify")("Session exists for this directory!", "success")
-      --   else
-      --     require("notify")("No session found for this directory.", "warn")
-      --   end
-      -- end
-
     center_dashboard()
     alpha.setup(dashboard.opts)
     end,
@@ -145,21 +116,14 @@ return {
       })
       wk.add({
         { "<leader>c", group = " [c]ode" },
-
         { "<leader>d", group = "󰧮 [d]ocument" },
-
         { "<leader>b", group = " [b]uffer" },
-
         { "<leader>r", group = "󰑕 [r]ename" },
-
         { "<leader>f", group = " [f]ind" },
-
         { "<leader>g", group = " [g]it" },
-
         { "<leader>s", group = " [s]ession" },
-
+        { "<leader>n", group = " [n]otifications" },
         { "<leader>t", group = " [t]oggle" },
-
         { "<leader>h", group = "󰋖 [h]elp" },
         { "<leader>hk", "<cmd>lua require('which-key').show({ global = false })<CR>", desc = "[k]eymaps", mode = { "n" } },
       })
@@ -213,11 +177,13 @@ return {
   },
   {
     "leath-dub/snipe.nvim",
+    lazy = true,
     keys = {
       { "\\", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe [b]uffer menu" },
       { "<leader>q", ":bd<CR>", desc = '[q]uit a buffer', silent = true },
       { "<leader>w", ":w<CR>", desc = '[w]rite a buffer', silent = true },
-      { '<leader>bn', ':enew<CR>', desc = '[n]ew buffer', silent = true }
+      { '<leader>bn', ':enew<CR>', desc = '[n]ew buffer', silent = true },
+      { '<S-Tab>', ':bnext<CR>', desc = 'Toggle Buffers', noremap = true, silent = true },
     },
     opts = {
       ui = {
@@ -264,6 +230,23 @@ return {
       --   end
       --   return table.concat(unique_client_names, " | ")
       -- end
+      local function codeium_status()
+        local status = require('codeium.virtual_text').status()
+
+        if status.state == 'idle' then
+          return '󱜚'
+        end
+
+        if status.state == 'waiting' then
+          return "󱌿"
+        end
+
+        if status.state == 'completions' and status.total > 0 then
+          return string.format('%d-%d/%d', '󱜚', status.current, status.total)
+        end
+
+        return '󱚧'
+      end
       local auto_theme_custom = require('lualine.themes.auto')
       auto_theme_custom.normal.c.bg = '#292c3c80'
       auto_theme_custom.normal.c.fg = '#89b4fa'
@@ -276,12 +259,37 @@ return {
         },
         sections = {
           lualine_a = { { 'mode', separator = { left = '' }, left_padding = 4, right_padding = 2 } },
-          lualine_b = { 'filename', 'branch', 'fileformat', 'encoding' },
+          lualine_b = {
+            'filename',
+            'branch',
+            'fileformat',
+            -- 'encoding'
+            {
+              -- show file status
+              function()
+                if vim.bo.modified then
+                  return ''
+                elseif not vim.bo.modifiable or vim.bo.readonly then
+                  return '' -- ReadOnly
+                end
+                return ''
+              end,
+            },
+          },
           lualine_c = {
             '%=', --[[ add your center compoentnts here in place of this comment ]]
           },
-          lualine_x = { "diagnostics" }, -- get_attached_clients
-          lualine_y = { 'filetype', 'progress' },
+          lualine_x = {
+            "diagnostics",
+            -- get_attached_clients,
+          },
+          lualine_y = {
+            function()
+              return  codeium_status()
+            end,
+            'filetype',
+            'progress'
+          },
           lualine_z = {
             { 'location', separator = { right = '' }, left_padding = 2 },
           },

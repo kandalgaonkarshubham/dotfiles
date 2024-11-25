@@ -1,5 +1,16 @@
 -- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
+local function random_theme()
+  local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" }
+  math.randomseed(os.time())
+  vim.cmd.colorscheme(themes[math.random(#themes)])
+
+  -- Custom highlight for current curs0r line color
+  local custom_color = vim.api.nvim_get_hl_by_name("String", true).foreground
+  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = custom_color, bold = true })
+end
+
+
 return {
   { "folke/tokyonight.nvim", priority = 1000 },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -7,38 +18,11 @@ return {
   { "olivercederborg/poimandres.nvim", priority = 1000 },
   { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
   { "mhartington/oceanic-next" },
-  { "jay-babu/colorscheme-randomizer.nvim",
-    config = function()
-      require("colorscheme-randomizer").setup({
-        apply_scheme = true,
-        plugin_strategy = "lazy",
-        colorschemes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" },
-        exclude_colorschemes = nil,
-      })
-      -- [[ Set the BufferLine background ]]
-      -- local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
-      -- vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg_color })
-
-      -- [[ Check colorscheme ]]
-      if vim.g.colors_name == "catppuccin-mocha" then
-        require("catppuccin").setup({
-          integrations = {
-            noice = false,
-            mason = true,
-            which_key = true,
-            indent_blankline = {
-              colored_indent_levels = true,
-            },
-          }
-        })
-      end
-    end
-  },
   {
     "xiyaowong/transparent.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",
     keys = {
-      { "<leader>tt", "<cmd>TransparentToggle<cr>", desc = "[t]oggle [t]ransparency" },
+      { "<leader>tt", "<cmd>TransparentToggle<cr>", desc = "Toggle [t]ransparency" },
     },
     config = function()
       require("transparent").setup({
@@ -62,6 +46,7 @@ return {
         },
         on_clear = function() end,
       })
+      random_theme()
     end,
   },
 }

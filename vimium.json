@@ -1,0 +1,7 @@
+{
+  "filterLinkHints": true,
+  "newTabUrl": "edge:newtab",
+  "scrollStepSize": 40,
+  "settingsVersion": "2.1.2",
+  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n/* linkhint boxes */\n/* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3b4252),\n  color-stop(100%,#4c566a));\nborder: 1px solid #2e3440; */\nbackground: rgba(0,0,0,0.5);\nborder: transparent;\n}\n\ndiv > .vimiumHintMarker span {\n/* linkhint text */\ncolor: #5DE4C7;\nfont-family: \"Dythi\", sans-serif;\nfont-weight: normal;\nfont-size: 12px;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n}"
+}

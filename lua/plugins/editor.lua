@@ -102,15 +102,4 @@ return {
       require('ts_context_commentstring').setup {}
     end,
   },
-  {
-    "folke/twilight.nvim",
-    event = "BufRead",
-    opts = {
-      -- context = 10, -- amount of lines we will try to show around the current line
-      -- exclude = {}, -- exclude these filetypes
-    },
-    keys = {
-      { "<leader>tw", "<cmd>Twilight<cr>", desc = "Toggle t[w]ilight" },
-    },
-  },
 }

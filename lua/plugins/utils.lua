@@ -72,13 +72,13 @@ return {
   --!! Telescope --
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    branch = "0.1.x",
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { "<leader>ff", "<cmd>require('telescope.builtin').find_files<cr>", desc = "Find [f]iles" },
-      { "<leader>fg", "<cmd>require('telescope.builtin').live_grep<cr>", desc = "Live [g]rep" },
-      { "<leader>fb", "<cmd>require('telescope.builtin').buffers<cr>", desc = "List [b]uffers" },
-      { "<leader>fh", "<cmd>require('telescope.builtin').help_tags<cr>", desc = "[h]elp Tags" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find [f]iles" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live [g]rep" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "List [b]uffers" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "[h]elp Tags" },
     },
   },
   {
@@ -119,20 +119,82 @@ return {
     event = "BufRead",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {
-      disabled_keys = {
-        ["<Up>"] = { "n", "x" },
-        ["<Down>"] = { "n", "x" },
-        ["<Left>"] = { "n", "x" },
-        ["<Right>"] = { "n", "x" },
-      },
+      -- disabled_keys = {
+      --   ["<Up>"] = { "n", "x" },
+      --   ["<Down>"] = { "n", "x" },
+      --   ["<Left>"] = { "n", "x" },
+      --   ["<Right>"] = { "n", "x" },
+      -- },
     }
   },
   {
     "hedyhli/outline.nvim",
     cmd = { "Outline", "OutlineOpen" },
     keys = {
-      { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+      { "<leader>to", "<cmd>Outline<CR>", desc = "Toggle [o]utline" },
     },
     opts = {},
+  },
+  {
+    "folke/twilight.nvim",
+    event = "BufRead",
+    opts = {
+      -- context = 10, -- amount of lines we will try to show around the current line
+      -- exclude = {}, -- exclude these filetypes
+    },
+    keys = {
+      { "<leader>tw", "<cmd>Twilight<cr>", desc = "Toggle t[w]ilight" },
+    },
+  },
+  {
+    "Exafunction/codeium.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup({
+        enable_cmp_source = false,
+        enable_chat = false,
+        virtual_text = {
+          enabled = true,
+          key_bindings = {
+            -- Accept the current completion.
+            accept = "<Tab>",
+            -- Accept the next word.
+            accept_word = false,
+            -- Accept the next line.
+            accept_line = false,
+            -- Clear the virtual text.
+            clear = false,
+            -- Cycle to the next completion.
+            next = "<M-]>",
+            -- Cycle to the previous completion.
+            prev = "<M-[>",
+          }
+        }
+      })
+      require('codeium.virtual_text').set_statusbar_refresh(
+        function()
+          require('lualine').refresh()
+        end
+      )
+    end
+  },
+  {
+    "Pocco81/auto-save.nvim",
+    cmd = { "ASToggle" },
+    keys = {
+      { "<leader>ta", "<cmd>ASToggle<CR>", desc = "Toggle [a]utosave" },
+    },
+    config = function()
+      require("auto-save").setup {
+        trigger_events = { "InsertLeave" },
+        execution_message = {
+          message = nil,
+          cleaning_interval = 0,
+        },
+      }
+    end,
   },
 }
