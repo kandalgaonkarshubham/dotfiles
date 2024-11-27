@@ -92,12 +92,10 @@ return {
     "numToStr/Comment.nvim",
     lazy = true,
     event = "BufRead",
-    opts = {
-    }
+    opts = {}
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    event = "BufRead",
     config = function()
       require('ts_context_commentstring').setup {}
     end,
