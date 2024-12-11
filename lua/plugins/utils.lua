@@ -137,6 +137,7 @@ return {
   },
   {
     "folke/twilight.nvim",
+    cmd = { "Twilight" },
     event = "BufRead",
     opts = {
       -- context = 10, -- amount of lines we will try to show around the current line
@@ -202,5 +203,10 @@ return {
     config = function()
       require("dooing").setup({})
     end,
+  },
+  {
+    "ellisonleao/glow.nvim",
+    cmd = "Glow",
+    config = true,
   },
 }

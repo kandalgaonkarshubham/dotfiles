@@ -61,10 +61,11 @@ vim.g.have_nerd_font = true
 --! [[ Code Folding ]]
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
--- vim.o.foldlevelstart = 1
+vim.o.foldlevelstart = 99
 vim.opt.foldtext = ""
+vim.o.foldenable = true
 -- vim.opt.foldnestmax = 4
 -- vim.cmd([[ set nofoldenable]]) -- vim.opt.nofoldenable = true
 
@@ -79,6 +80,9 @@ vim.keymap.set("i", "jj", "<ESC>", { silent = true })
 --! [[ Map oo to Ctrl+o ]]
 vim.keymap.set('i', 'oo', '<C-o>', { silent = true })
 
+
+--? [[ Replace ~ ]]
+vim.opt.fillchars = { eob = " " }
 
 --? [[ Show Alpha on Empty Buffer ]]
 vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
@@ -110,8 +114,46 @@ vim.api.nvim_create_autocmd(
   }
 )
 
---? [[ Replace ~ ]]
-vim.opt.fillchars = { eob = " " }
+--? [[ Function to open a file in a floating window ]]
+local function open_floating_window(file_path)
+  -- Create a new buffer
+  local buf = vim.api.nvim_create_buf(false, true) -- No file, buffer is scratch
+
+  -- Set the floating window dimensions
+  local width = math.floor(vim.o.columns * 0.8)
+  local height = math.floor(vim.o.lines * 0.8)
+  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - width) / 2)
+
+  -- Create the floating window
+  vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = row,
+    col = col,
+    style = 'minimal',
+    border = 'rounded', -- Optional: 'single', 'double', 'solid', or 'none'
+  })
+
+  -- Load the file into the buffer
+  vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+  vim.cmd('edit ' .. file_path)
+
+  -- Check the file extension
+  local ext = file_path:match("^.+(%..+)$")
+  if ext == ".md" then
+    -- Enable Markdown syntax highlighting
+    vim.cmd('set filetype=markdown')
+  end
+
+  -- Make the buffer non-modifiable
+  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+end
+--? Key mapping to open Commit Conventions
+vim.keymap.set('n', '<leader>oc', function()
+  open_floating_window(vim.fn.expand('~/Projects/COMMIT-CONVENTIONS.md'))
+end, { noremap = true, silent = true, desc = "Open Commit Conventions" })
 
 
 --* Re-open at last position
