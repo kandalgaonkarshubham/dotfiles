@@ -143,6 +143,7 @@ return {
 				{ "<leader>f", group = " [f]ind" },
 				{ "<leader>g", group = " [g]it" },
 				{ "<leader>s", group = " [s]ession" },
+        { "<leader>e", group = " [e]colog" },
 				{ "<leader>n", group = " [n]otifications" },
 				{ "<leader>t", group = " [t]oggle" },
 				{ "<leader>h", group = "󰋖 [h]elp" },
@@ -161,8 +162,8 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
-			{ '<leader>e', ':Neotree toggle<CR>', desc = 'Toggle [e]xplorer',                        silent = true },
-			{ '<leader>o', ':Neotree focus<CR>',  desc = 'Toggle f[o]cus between Explorer & Buffer', silent = true }
+			{ '<leader>te', ':Neotree toggle<CR>', desc = 'Toggle [e]xplorer',                        silent = true },
+			{ '<leader>tf', ':Neotree focus<CR>',  desc = 'Toggle [f]ocus between Explorer & Buffer', silent = true }
 		},
 		opts = {
 			filesystem = {

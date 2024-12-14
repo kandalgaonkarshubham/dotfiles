@@ -132,4 +132,16 @@ return {
       })
     end,
   },
+  {
+    "philosofonusus/ecolog.nvim",
+    lazy = false,
+    dependencies = {
+      'hrsh7th/nvim-cmp',
+    },
+    keys = {
+      { '<leader>eg', '<cmd>EcologGoto<cr>', desc = 'Ecolog [g]o to env file' },
+      { '<leader>ep', '<cmd>EcologPeek<cr>', desc = 'Ecolog [p]eek variable' },
+      { '<leader>es', '<cmd>EcologSelect<cr>', desc = 'Ecolog [s]witch env file' },
+    },
+  }
 }

@@ -247,11 +247,29 @@ return {
 		config = function()
 			local augroup = vim.api.nvim_create_augroup("LspAutoFormatting", {})
 			local null_ls = require("null-ls")
+
+      -- List & Function to check if the current directory matches any in the list
+      local disabled_directories = {
+        "/home/tazerblaze/Projects/react-jurorsearch",
+      }
+      local function is_directory_disabled()
+        local cwd = vim.fn.getcwd()
+        for _, dir in ipairs(disabled_directories) do
+          if cwd == dir then
+            return true
+          end
+        end
+        return false
+      end
+
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.prettierd,
-					-- null_ls.builtins.formatting.eslint,
+          null_ls.builtins.formatting.prettierd.with({
+            condition = function(utils)
+              return not is_directory_disabled() -- Disable Prettier for matching directories
+            end,
+          }),
 					require("none-ls.diagnostics.eslint_d"),
 				},
 				on_attach = function(client, bufnr)

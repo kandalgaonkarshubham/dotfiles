@@ -209,4 +209,19 @@ return {
     cmd = "Glow",
     config = true,
   },
+  {
+    "mistricky/codesnap.nvim",
+    build = "make",
+    keys = {
+      { "<leader>cc", ":CodeSnap<cr>", mode = "x", noremap = true, silent = true, desc = "Copy selected code snapshot into [c]lipboard" },
+      { "<leader>cs", ":CodeSnapSave<cr>", mode = "x", noremap = true, silent = true, desc = "[s]ave selected code snapshot locally" },
+    },
+    opts = {
+      save_path = "~/Pictures/nvim",
+      has_breadcrumbs = true,
+      show_workspace = true,
+      bg_padding = 0,
+      watermark = "",
+    },
+  },
 }
