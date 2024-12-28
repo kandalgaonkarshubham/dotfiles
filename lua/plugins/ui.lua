@@ -67,7 +67,6 @@ return {
 			dashboard.section.buttons.val = {
 				dashboard.button("N", " " .. " New file", [[<cmd> ene <BAR> startinsert <cr>]]),
 				dashboard.button("F", " " .. " Find File", [[<cmd> Telescope find_files <cr>]]),
-				dashboard.button("R", " " .. " Recent Files", [[<cmd> Telescope oldfiles <cr>]]),
 				dashboard.button("L", "󰒲 " .. " Lazy", [[<cmd> Lazy <cr>]]),
 				dashboard.button("V", " " .. " Configure NeoVim", [[<cmd> lua vim.cmd('cd ' .. vim.fn.stdpath('config')) <cr>]]),
 				dashboard.button("Q", " " .. " Quit", "<cmd> qa <cr>"),
@@ -146,6 +145,7 @@ return {
         { "<leader>e", group = " [e]colog" },
 				{ "<leader>n", group = " [n]otifications" },
 				{ "<leader>t", group = " [t]oggle" },
+        { "<leader>o", group = "󰏌 [o]pen" },
 				{ "<leader>h", group = "󰋖 [h]elp" },
 				{ "<leader>hk", "<cmd>lua require('which-key').show({ global = false })<CR>", desc = "[k]eymaps", mode = { "n" } },
 			})

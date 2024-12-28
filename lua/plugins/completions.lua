@@ -26,11 +26,58 @@ return {
 		end,
 	},
 	{
+		"schrieveslaach/sonarlint.nvim",
+		url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+		ft = { "html", "php", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+		config = function()
+			require("sonarlint").setup({
+				server = {
+					cmd = {
+						"sonarlint-language-server",
+						-- Ensure that sonarlint-language-server uses stdio channel
+						"-stdio",
+						"-analyzers",
+						-- paths to the analyzers you need, using those for python and java in this example | ~/.local/share/nvim/mason/share/sonarlint-analyzers
+						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarphp.jar"),
+						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+            "--log-level", "DEBUG",
+					},
+				},
+				settings = {
+					sonarlint = {
+						test = "test",
+						rules = {
+							["typescript:S101"] = { level = "on", parameters = { format = "^[A-Z][a-zA-Z0-9]*$" } },
+							["typescript:S103"] = { level = "on", parameters = { maximumLineLength = 180 } },
+							["typescript:S106"] = { level = "on" },
+							["typescript:S107"] = { level = "on", parameters = { maximumFunctionParameters = 7 } },
+						},
+					},
+				},
+				filetypes = {
+					"html",
+					"php",
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+					-- 'python',
+					-- 'cpp',
+					-- 'java',
+				},
+			})
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls" }
+			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls", "volar", "vtsls" }
 			for _, server in ipairs(servers) do
 				lspconfig[server].setup({
 					capabilities = capabilities,
@@ -94,53 +141,6 @@ return {
 				vim.lsp.buf.hover,
 				{ noremap = true, silent = true, desc = "[c]ode [h]over documentation" }
 			)
-		end,
-	},
-	{
-		"schrieveslaach/sonarlint.nvim",
-		url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
-		ft = { "html", "php", "javascript", "typescript", "javascriptreact", "typescriptreact" },
-		config = function()
-			require("sonarlint").setup({
-				-- capabilities = require('cmp_nvim_lsp').default_capabilities(),
-				server = {
-					cmd = {
-						"sonarlint-language-server",
-						-- Ensure that sonarlint-language-server uses stdio channel
-						"-stdio",
-						"-analyzers",
-						-- paths to the analyzers you need, using those for python and java in this example | ~/.local/share/nvim/mason/share/sonarlint-analyzers
-						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
-						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarphp.jar"),
-						vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
-						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
-						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
-						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
-					},
-				},
-				settings = {
-					sonarlint = {
-						test = "test",
-						rules = {
-							["typescript:S101"] = { level = "on", parameters = { format = "^[A-Z][a-zA-Z0-9]*$" } },
-							["typescript:S103"] = { level = "on", parameters = { maximumLineLength = 180 } },
-							["typescript:S106"] = { level = "on" },
-							["typescript:S107"] = { level = "on", parameters = { maximumFunctionParameters = 7 } },
-						},
-					},
-				},
-				filetypes = {
-					"html",
-					"php",
-					"javascript",
-					"typescript",
-					"javascriptreact",
-					"typescriptreact",
-					-- 'python',
-					-- 'cpp',
-					-- 'java',
-				},
-			})
 		end,
 	},
 	--! COMPLETIONS -------------------------------------------------------------
@@ -248,6 +248,22 @@ return {
 			local augroup = vim.api.nvim_create_augroup("LspAutoFormatting", {})
 			local null_ls = require("null-ls")
 
+
+      -- Check for eslint files
+      local eslint_config = {
+        prefer_local = "node_modules/.bin",
+        condition = function(utils)
+          return utils.root_has_file({
+            ".eslintrc",
+            ".eslintrc.js",
+            ".eslintrc.cjs",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
+            ".eslintrc.json",
+          })
+        end,
+      }
+
       -- List & Function to check if the current directory matches any in the list
       local disabled_directories = {
         "/home/tazerblaze/Projects/react-jurorsearch",
@@ -270,7 +286,8 @@ return {
               return not is_directory_disabled() -- Disable Prettier for matching directories
             end,
           }),
-					require("none-ls.diagnostics.eslint_d"),
+          require("none-ls.code_actions.eslint_d").with(eslint_config),
+          require("none-ls.diagnostics.eslint_d").with(eslint_config),
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then

@@ -2,8 +2,14 @@
 
 local function random_theme()
   local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" }
+
   math.randomseed(os.time())
-  vim.cmd.colorscheme(themes[math.random(#themes)])
+  local colorscheme = themes[math.random(#themes)]
+  vim.cmd.colorscheme(colorscheme)
+
+  if colorscheme == "poimandres" then
+    require('poimandres').setup {}
+  end
 
   -- Custom highlight for current curs0r line color
   local custom_color = vim.api.nvim_get_hl_by_name("String", true).foreground
@@ -16,7 +22,7 @@ return {
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "shaunsingh/nord.nvim", priority = 1000 },
   { "olivercederborg/poimandres.nvim", priority = 1000 },
-  { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
+  { "rose-pine/neovim", name = "rose-pine" },
   { "mhartington/oceanic-next" },
   {
     "xiyaowong/transparent.nvim",
