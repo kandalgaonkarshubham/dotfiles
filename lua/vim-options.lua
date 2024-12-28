@@ -153,7 +153,7 @@ end
 --? Key mapping to open Commit Conventions
 vim.keymap.set('n', '<leader>oc', function()
   open_floating_window(vim.fn.expand('~/Projects/COMMIT-CONVENTIONS.md'))
-end, { noremap = true, silent = true, desc = "Open Commit Conventions" })
+end, { noremap = true, silent = true, desc = "[c]ommit conventions" })
 
 
 --* Re-open at last position

@@ -292,10 +292,18 @@ return {
 								if vim.bo.modified then
 									return ''
 								elseif not vim.bo.modifiable or vim.bo.readonly then
-									return '' -- ReadOnly
+									return '' -- ReadOnly
 								end
 								return ''
 							end,
+              color = function()
+                if vim.bo.modified then
+                  return { fg = '#ff4500' }
+                elseif not vim.bo.modifiable or vim.bo.readonly then
+                  return { fg = '#ff007f' }
+                end
+                return { fg = '#39ff14' }
+              end,
 						},
 					},
 					lualine_c = {
