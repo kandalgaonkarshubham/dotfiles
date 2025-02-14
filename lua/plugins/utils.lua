@@ -119,12 +119,12 @@ return {
     event = "BufRead",
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {
-      -- disabled_keys = {
-      --   ["<Up>"] = { "n", "x" },
-      --   ["<Down>"] = { "n", "x" },
-      --   ["<Left>"] = { "n", "x" },
-      --   ["<Right>"] = { "n", "x" },
-      -- },
+      disabled_keys = {
+        ["<Up>"] = {},
+        ["<Down>"] = {},
+        ["<Left>"] = {},
+        ["<Right>"] = {},
+      },
     }
   },
   {
@@ -212,6 +212,7 @@ return {
   {
     "mistricky/codesnap.nvim",
     build = "make",
+    lazy = true,
     keys = {
       { "<leader>cc", ":CodeSnap<cr>", mode = "x", noremap = true, silent = true, desc = "Copy selected code snapshot into [c]lipboard" },
       { "<leader>cs", ":CodeSnapSave<cr>", mode = "x", noremap = true, silent = true, desc = "[s]ave selected code snapshot locally" },

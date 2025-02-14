@@ -21,6 +21,8 @@ return {
 					"jsonls",
 					"emmet_language_server",
 					"lua_ls",
+					"eslint",
+					-- "prettierd"
 				},
 			})
 		end,
@@ -44,7 +46,7 @@ return {
 						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
 						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
 						-- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
-            "--log-level", "DEBUG",
+						"--log-level", "DEBUG",
 					},
 				},
 				settings = {
@@ -77,7 +79,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls", "volar", "vtsls" }
+			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls", "volar" }
 			for _, server in ipairs(servers) do
 				lspconfig[server].setup({
 					capabilities = capabilities,
@@ -156,7 +158,7 @@ return {
 			"rafamadriz/friendly-snippets",
 			"mlaursen/vim-react-snippets",
 			"hrsh7th/cmp-buffer", -- buffer completion
-			"hrsh7th/cmp-path", -- path completion
+			"hrsh7th/cmp-path",  -- path completion
 			"hrsh7th/cmp-cmdline", -- cmdline completion
 			"onsails/lspkind.nvim", -- pictograms
 		},
@@ -249,45 +251,46 @@ return {
 			local null_ls = require("null-ls")
 
 
-      -- Check for eslint files
-      local eslint_config = {
-        prefer_local = "node_modules/.bin",
-        condition = function(utils)
-          return utils.root_has_file({
-            ".eslintrc",
-            ".eslintrc.js",
-            ".eslintrc.cjs",
-            ".eslintrc.yaml",
-            ".eslintrc.yml",
-            ".eslintrc.json",
-          })
-        end,
-      }
+			-- Check for eslint files
+			local eslint_config = {
+				prefer_local = "node_modules/.bin",
+				condition = function(utils)
+					return utils.root_has_file({
+						".eslintrc",
+						".eslintrc.js",
+						".eslintrc.cjs",
+						".eslintrc.yaml",
+						".eslintrc.yml",
+						".eslintrc.json",
+					})
+				end,
+			}
 
-      -- List & Function to check if the current directory matches any in the list
-      local disabled_directories = {
-        "/home/tazerblaze/Projects/react-jurorsearch",
-      }
-      local function is_directory_disabled()
-        local cwd = vim.fn.getcwd()
-        for _, dir in ipairs(disabled_directories) do
-          if cwd == dir then
-            return true
-          end
-        end
-        return false
-      end
+			-- List & Function to check if the current directory matches any in the list
+			local disabled_directories = {
+				"/home/tazerblaze/Projects/react-jurorsearch",
+				"/home/tazerblaze/Projects/IPHEC-Reports",
+			}
+			local function is_directory_disabled()
+				local cwd = vim.fn.getcwd()
+				for _, dir in ipairs(disabled_directories) do
+					if cwd == dir then
+						return true
+					end
+				end
+				return false
+			end
 
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.prettierd.with({
-            condition = function(utils)
-              return not is_directory_disabled() -- Disable Prettier for matching directories
-            end,
-          }),
-          require("none-ls.code_actions.eslint_d").with(eslint_config),
-          require("none-ls.diagnostics.eslint_d").with(eslint_config),
+					null_ls.builtins.formatting.prettierd.with({
+						condition = function(utils)
+							return not is_directory_disabled() -- Disable Prettier for matching directories
+						end,
+					}),
+					require("none-ls.code_actions.eslint_d").with(eslint_config),
+					require("none-ls.diagnostics.eslint_d").with(eslint_config),
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
