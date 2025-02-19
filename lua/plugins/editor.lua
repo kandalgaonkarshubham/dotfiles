@@ -11,7 +11,7 @@ return {
       config = config.setup({
         ensure_installed = {
           "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline",
-          "html", "css", "javascript", "typescript", "tsx", "prisma", "json",
+          "html", "css", "javascript", "typescript", "tsx", "prisma", "json", "sql",
         },
         auto_install = true,
         indent = { enable = true },

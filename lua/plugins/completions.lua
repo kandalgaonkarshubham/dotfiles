@@ -22,6 +22,7 @@ return {
 					"emmet_language_server",
 					"lua_ls",
 					"eslint",
+					-- "eslint_d@13.1.2",
 					-- "prettierd"
 				},
 			})
@@ -79,7 +80,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls", "volar" }
+			local servers = { "html", "cssls", "tailwindcss", "prismals", "jsonls", "lua_ls", "volar", "ts_ls" }
 			for _, server in ipairs(servers) do
 				lspconfig[server].setup({
 					capabilities = capabilities,
@@ -194,6 +195,7 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					-- { name = 'codeium' },
+					{ name = 'dadbod' },
 				}, {
 					{ name = "buffer" },
 					{ name = "path" },
@@ -262,6 +264,12 @@ return {
 						".eslintrc.yaml",
 						".eslintrc.yml",
 						".eslintrc.json",
+						"eslint.config.mjs",
+						"eslint.config.cjs",
+						"eslint.config.js",
+						"eslint.config.yaml",
+						"eslint.config.yml",
+						"eslint.config.json",
 					})
 				end,
 			}
@@ -289,8 +297,11 @@ return {
 							return not is_directory_disabled() -- Disable Prettier for matching directories
 						end,
 					}),
-					require("none-ls.code_actions.eslint_d").with(eslint_config),
-					require("none-ls.diagnostics.eslint_d").with(eslint_config),
+					require("none-ls.code_actions.eslint").with(eslint_config),
+					require("none-ls.diagnostics.eslint").with(eslint_config),
+					-- require("none-ls.code_actions.eslint_d").with(eslint_config),
+					-- require("none-ls.diagnostics.eslint_d").with(eslint_config),
+
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
