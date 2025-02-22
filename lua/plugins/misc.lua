@@ -5,6 +5,7 @@ return {
   { "seandewar/killersheep.nvim", cmd = "KillKillKill" },
   {
     "rubiin/fortune.nvim",
+    event = "VeryLazy",
     config = function()
       require("fortune").setup({
         max_width = 60,
