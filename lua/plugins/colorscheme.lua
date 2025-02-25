@@ -1,17 +1,9 @@
 -- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
-local function random_theme()
-  local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" }
+local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" }
 
-  math.randomseed(os.time())
-  local colorscheme = themes[math.random(#themes)]
-
-  -- if colorscheme == "poimandres" then
-  --   require('poimandres').setup {}
-  -- end
-
-  return colorscheme
-end
+math.randomseed(os.time())
+local colorscheme = themes[math.random(#themes)]
 
 return {
   { "shaunsingh/nord.nvim", priority = 1000 },
@@ -21,7 +13,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = random_theme(),
+      colorscheme = colorscheme,
     },
   },
   {
@@ -33,26 +25,71 @@ return {
     config = function()
       require("transparent").setup({
         extra_groups = {
-        -- Tabline
-        "Winbar", "WinbarNC", "NormalFloat", "FloatBorder", "Folded",
-        -- -- Telescope
-        -- "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
-        -- -- NeoTree
-        -- "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
-        -- WhichKey
-        "WhichKey", "WhichKeyNormal","WhichKeyFloat", "WhichKeyTitle", "WhichKeyBorder", "MasonNormal", "LazyNormal",
-    --     -- Noice & Notify
-    --     "NoiceCmdline", "NotifyBackground", "MiniNotifyTitle", "NotifyTRACEBody", "NotifyDEBUGBody", "NotifyINFOBody", "NotifyWARNBody", "NotifyERRORBody", "NotifyDEBUGBorder", "NotifyTRACEBorder", "NotifyINFOBorder", "NotifyWARNBorder", "NotifyERRORBorder",
-        -- Lsps Misc
-        "LspInlayHint", "LspInfoBorder", "DiagnosticVirtualTextHint",
-        -- Bufferline
-        "BufferCurrent", "BufferCurrentMod", "BufferCurrentSign", "BufferCurrentTarget", "BufferCurrentIndex", "BufferTabpageFill", "BufferLineFill", "Tabline", "TablineFill",
+          -- Tabline
+          "Winbar",
+          "WinbarNC",
+          "NormalFloat",
+          "FloatBorder",
+          "Folded",
+          -- -- Telescope
+          -- "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
+          -- -- NeoTree
+          -- "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
+          -- WhichKey
+          "WhichKey",
+          "WhichKeyNormal",
+          "WhichKeyFloat",
+          "WhichKeyTitle",
+          "WhichKeyBorder",
+          "MasonNormal",
+          "LazyNormal",
+          -- Noice & Notify
+          "NoiceCmdline",
+          "NotifyBackground",
+          "MiniNotifyTitle",
+          "SnacksNotifierTrace",
+          "SnacksNotifierDebug",
+          "SnacksNotifierInfo",
+          "SnacksNotifierWarn",
+          "SnacksNotifierError",
+          "SnacksNotifierBorderTrace",
+          "SnacksNotifierBorderDebug",
+          "SnacksNotifierBorderInfo",
+          "SnacksNotifierBorderWarn",
+          "SnacksNotifierBorderError",
+          -- Lsps Misc
+          "LspInlayHint",
+          "LspInfoBorder",
+          "DiagnosticVirtualTextHint",
+          -- Bufferline
+          "BufferCurrent",
+          "BufferCurrentMod",
+          "BufferCurrentSign",
+          "BufferCurrentTarget",
+          "BufferCurrentIndex",
+          "BufferTabpageFill",
+          "BufferLineFill",
+          "Tabline",
+          "TablineFill",
         },
         on_clear = function() end,
       })
+
+      -- Colorscheme setup
+      if colorscheme == "nord" then
+        require("nord").set()
+      elseif colorscheme == "poimandres" then
+        require("poimandres").setup({})
+      end
+
       -- Custom highlight for current curs0r line color
       local custom_color = vim.api.nvim_get_hl_by_name("String", true).foreground
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = custom_color, bold = true })
+
+      -- Lazyvim's highlight on word
+      -- vim.api.nvim_set_hl(0, "LspReferenceText", {})
+      vim.api.nvim_set_hl(0, "LspReferenceRead", {})
+      -- vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
     end,
   },
 }

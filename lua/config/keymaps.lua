@@ -11,6 +11,9 @@ vim.keymap.set("i", "jj", "<ESC>", { silent = true })
 -- vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
+--* [[ Save File ]]
+vim.keymap.set("n", "<leader>bs", ":w<CR>", { noremap = true, silent = true, desc = "Save Buffer" })
+
 
 --* [[ Function to open a file in a floating window ]]
 local function open_floating_window(file_path)

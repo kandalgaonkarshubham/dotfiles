@@ -2,10 +2,6 @@
 
 return {
   {
-    "gennaro-tedesco/nvim-peekup",
-    cmd = "PeekupOpen",
-  },
-  {
     "tris203/precognition.nvim",
     event = "BufRead",
     opts = {

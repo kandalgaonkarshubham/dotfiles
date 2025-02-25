@@ -1,7 +1,7 @@
 -- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 local function remove_quotes_and_commas(str)
-  return str:gsub('[",]', '')
+  return str:gsub('[",]', "")
 end
 
 local headers = {
@@ -68,19 +68,20 @@ return {
     opts = {
       dashboard = {
         preset = {
-          pick = function(cmd, opts)
-            return LazyVim.pick(cmd, opts)()
-          end,
           header = remove_quotes_and_commas(logo),
           ---@type snacks.dashboard.Item[]
           keys = {
             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
             { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            {
+              icon = " ",
+              key = "c",
+              desc = "Config",
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+            },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
@@ -88,12 +89,14 @@ return {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
           -- { section = "startup" },
-          { text = {
-              { get_footer(),
+          {
+            text = {
+              {
+                get_footer(),
                 align = "center",
-                hl = "SnacksDashboardDesc"
-              }
-            }
+                hl = "SnacksDashboardHeader",
+              },
+            },
           },
         },
       },
@@ -126,31 +129,31 @@ return {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
-          section_separators = { left = '', right = '' },
+          section_separators = { left = "", right = "" },
         },
         sections = {
-          lualine_a = { { 'mode', separator = { left = '' }, left_padding = 4, right_padding = 2 } },
+          lualine_a = { { "mode", separator = { left = "" }, left_padding = 4, right_padding = 2 } },
           lualine_b = {
             "branch",
             {
-							-- show file status
-							function()
-								if vim.bo.modified then
-									return ''
-								elseif not vim.bo.modifiable or vim.bo.readonly then
-									return '' -- ReadOnly
-								end
-								return ''
-							end,
+              -- show file status
+              function()
+                if vim.bo.modified then
+                  return ""
+                elseif not vim.bo.modifiable or vim.bo.readonly then
+                  return "" -- ReadOnly
+                end
+                return ""
+              end,
               color = function()
                 if vim.bo.modified then
-                  return { fg = '#ff4500' }
+                  return { fg = "#ff4500" }
                 elseif not vim.bo.modifiable or vim.bo.readonly then
-                  return { fg = '#ff007f' }
+                  return { fg = "#ff007f" }
                 end
-                return { fg = '#39ff14' }
+                return { fg = "#39ff14" }
               end,
-						},
+            },
           },
 
           lualine_c = {
@@ -216,7 +219,7 @@ return {
             " ",
           },
           lualine_z = {
-            { 'progress', separator = { left = '', right = '' }, padding = { left = 0, right = 0 } },
+            { "progress", separator = { left = "", right = "" }, padding = { left = 0, right = 0 } },
           },
         },
         extensions = { "neo-tree", "lazy", "fzf" },
