@@ -85,11 +85,6 @@ return {
       -- Custom highlight for current curs0r line color
       local custom_color = vim.api.nvim_get_hl_by_name("String", true).foreground
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = custom_color, bold = true })
-
-      -- Lazyvim's highlight on word
-      -- vim.api.nvim_set_hl(0, "LspReferenceText", {})
-      vim.api.nvim_set_hl(0, "LspReferenceRead", {})
-      -- vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
     end,
   },
 }

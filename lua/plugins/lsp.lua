@@ -5,6 +5,7 @@ return {
     "schrieveslaach/sonarlint.nvim",
     url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
     ft = { "html", "php", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    enabled = true,
     config = function()
       require("sonarlint").setup({
         server = {

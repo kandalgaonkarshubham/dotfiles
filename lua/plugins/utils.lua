@@ -11,7 +11,7 @@ return {
   {
     "m4xshen/hardtime.nvim",
     event = "BufRead",
-    dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     opts = {
       disabled_keys = {
         ["<Up>"] = {},
@@ -19,7 +19,7 @@ return {
         ["<Left>"] = {},
         ["<Right>"] = {},
       },
-    }
+    },
   },
   {
     "atiladefreitas/dooing",
@@ -38,8 +38,22 @@ return {
     build = "make",
     event = "VeryLazy",
     keys = {
-      { "<leader>cc", ":CodeSnap<cr>", mode = "x", noremap = true, silent = true, desc = "Copy selected code snapshot into [c]lipboard" },
-      { "<leader>ca", ":CodeSnapSave<cr>", mode = "x", noremap = true, silent = true, desc = "S[a]ve selected code snapshot locally" },
+      {
+        "<leader>cc",
+        ":CodeSnap<cr>",
+        mode = "x",
+        noremap = true,
+        silent = true,
+        desc = "Copy selected code snapshot into [c]lipboard",
+      },
+      {
+        "<leader>ca",
+        ":CodeSnapSave<cr>",
+        mode = "x",
+        noremap = true,
+        silent = true,
+        desc = "S[a]ve selected code snapshot locally",
+      },
     },
     opts = {
       save_path = "~/Pictures/nvim",

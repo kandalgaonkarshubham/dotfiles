@@ -41,4 +41,20 @@ return {
       })
     end,
   },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    cmd = "Neotree",
+    opts = {
+      window = {
+				width = 30
+			},
+      filesystem = {
+        filtered_items = {
+          never_show = {
+						"node_modules"
+					},
+        }
+      },
+    },
+  }
 }
