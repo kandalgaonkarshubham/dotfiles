@@ -33,8 +33,8 @@ return {
           "Folded",
           -- -- Telescope
           -- "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
-          -- -- NeoTree
-          -- "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
+          -- NeoTree
+          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
           -- WhichKey
           "WhichKey",
           "WhichKeyNormal",
