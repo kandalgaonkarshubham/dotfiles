@@ -8,3 +8,8 @@ vim.opt.cursorline = true
 --! [[ Eslint & Prettier ]]
 vim.g.lazyvim_eslint_auto_format = false
 vim.g.lazyvim_prettier_needs_config = true
+
+--! [[ Word Wrap ]]
+vim.opt.wrap = true
+vim.opt.breakindent = true
+vim.opt.showbreak = "↪ "
