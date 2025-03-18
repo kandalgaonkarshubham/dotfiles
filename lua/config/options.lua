@@ -13,3 +13,6 @@ vim.g.lazyvim_prettier_needs_config = true
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.showbreak = "↪ "
+
+--! [[ Status Line (For Avante) ]]
+vim.opt.laststatus = 3
