@@ -1,4 +1,4 @@
--- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 return {
   {
@@ -14,18 +14,19 @@ return {
       },
     },
     event = "InsertEnter",
+    enabled = function() return not vim.tbl_contains({ "typr" }, vim.bo.filetype) end,
     opts = {
       sources = {
         compat = {},
         default = { "avante", "lsp", "path", "snippets", "buffer" },
         providers = {
           avante = {
-            module = 'blink-cmp-avante',
-            name = 'Avante',
+            module = "blink-cmp-avante",
+            name = "Avante",
             opts = {
               -- options for blink-cmp-avante
-            }
-          }
+            },
+          },
         },
       },
       cmdline = {
@@ -36,12 +37,12 @@ return {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    version = '*',
+    version = "*",
     opts = {
       provider = "claude", -- "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" |
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-3-7-sonnet-20250219",-- your desired model (or use gpt-4o, etc.)
+        model = "claude-3-7-sonnet-20250219", -- your desired model (or use gpt-4o, etc.)
         timeout = 30000, -- timeout in milliseconds
         temperature = 0, -- adjust if needed
         max_tokens = 4096,
@@ -78,7 +79,7 @@ return {
       },
       {
         -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
+        "MeanderingProgrammer/render-markdown.nvim",
         dependencies = {
           "yetone/avante.nvim",
         },
@@ -88,5 +89,5 @@ return {
         ft = { "markdown", "Avante" },
       },
     },
-  }
+  },
 }

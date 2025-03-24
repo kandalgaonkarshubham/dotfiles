@@ -14,4 +14,20 @@ return {
       })
     end
   },
+  { "nvzone/timerly",
+    dependencies = "nvzone/volt",
+    cmd = "TimerlyToggle",
+    keys = {
+      { "<leader>tm", "<cmd>TimerlyToggle<cr>", desc = "Toggle ti[m]erly" },
+    },
+    opts = {
+      minutes = { 05, 00 },
+    }
+  },
+  {
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = { "Typr", "TyprStats" },
+  },
 }

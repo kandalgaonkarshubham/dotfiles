@@ -67,4 +67,5 @@ return {
     "zeioth/garbage-day.nvim",
     event = "VeryLazy",
   },
+  { "pbogut/vim-dadbod-ssh" },
 }
