@@ -15,4 +15,4 @@ vim.opt.breakindent = true
 vim.opt.showbreak = "↪ "
 
 --! [[ Status Line (For Avante) ]]
-vim.opt.laststatus = 3
+-- vim.opt.laststatus = 3

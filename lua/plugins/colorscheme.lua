@@ -34,7 +34,9 @@ return {
           -- -- Telescope
           -- "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
           -- NeoTree
-          "NeoTreeNormal", "NeoTreeNormalNC", "NeoTreeWinSeparator",
+          "NeoTreeNormal",
+          "NeoTreeNormalNC",
+          "NeoTreeWinSeparator",
           -- WhichKey
           "WhichKey",
           "WhichKeyNormal",

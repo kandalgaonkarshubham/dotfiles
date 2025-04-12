@@ -29,5 +29,9 @@ return {
     dependencies = "nvzone/volt",
     opts = {},
     cmd = { "Typr", "TyprStats" },
+    keys = {
+      { "<leader>tp", "<cmd>Typr<cr>", desc = "Ty[p]r" },
+      { "<leader>ts", "<cmd>TyprStats<cr>", desc = "Typr [S]tats" },
+    },
   },
 }
