@@ -42,9 +42,16 @@ vim.api.nvim_create_autocmd("BufRead", {
 --   end,
 -- })
 
+--? [[ MasonUpdateAllComplete ]]
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MasonUpdateAllComplete',
+  callback = function()
+      print('mason-update-all has finished')
+  end,
+})
+
 --* [[ MACROS ]]
 
 -- ? [[ Console.log ]]
-
 local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
 vim.fn.setreg("l", "yoconsole.log('" .. esc .. "pa:" .. esc .. "la, " .. esc .. "pl")

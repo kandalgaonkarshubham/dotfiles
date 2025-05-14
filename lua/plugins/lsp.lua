@@ -56,4 +56,10 @@ return {
       inlay_hints = { enabled = false },
     },
   },
+  {
+    "RubixDev/mason-update-all",
+    config = function()
+      require('mason-update-all').setup()
+    end
+  },
 }
