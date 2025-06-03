@@ -1,4 +1,6 @@
-if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then
+--   return {}
+-- end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 return {
   {
@@ -14,7 +16,9 @@ return {
       },
     },
     event = "InsertEnter",
-    enabled = function() return not vim.tbl_contains({ "typr" }, vim.bo.filetype) end,
+    enabled = function()
+      return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
+    end,
     opts = {
       sources = {
         compat = {},

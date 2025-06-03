@@ -59,7 +59,24 @@ return {
   {
     "RubixDev/mason-update-all",
     config = function()
-      require('mason-update-all').setup()
-    end
+      require("mason-update-all").setup()
+    end,
   },
+  {
+    "mason-org/mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      table.insert(opts.ensure_installed, "prettierd")
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = function(_, opts)  
+      formatters_by_ft = {
+        javascript ={ "prettierd", stop_after_first = true },
+        typescript ={ "prettierd", stop_after_first = true },
+        vue ={ "prettierd", stop_after_first = true },
+      }
+    end,
+  }
 }
