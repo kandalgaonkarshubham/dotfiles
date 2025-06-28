@@ -1,6 +1,15 @@
 -- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
-local themes = { "rose-pine-moon", "poimandres", "catppuccin-mocha", "nord", "tokyonight-night", "OceanicNext" }
+local themes = {
+  "rose-pine-moon",
+  "poimandres",
+  "catppuccin-mocha",
+  "nord",
+  "tokyonight-night",
+  "OceanicNext",
+  "eldritch",
+  "horizon",
+}
 
 math.randomseed(os.time())
 local colorscheme = themes[math.random(#themes)]
@@ -10,6 +19,8 @@ return {
   { "olivercederborg/poimandres.nvim", priority = 1000 },
   { "rose-pine/neovim", name = "rose-pine" },
   { "mhartington/oceanic-next" },
+  { "eldritch-theme/eldritch.nvim", priority = 1000 },
+  { "lunarvim/horizon.nvim", priority = 1000 },
   {
     "LazyVim/LazyVim",
     opts = {
