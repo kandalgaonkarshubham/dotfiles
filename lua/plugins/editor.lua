@@ -92,6 +92,8 @@ return {
           mode = { "n", "v" },
           { "<leader>a", group = "Avante", icon = { icon = "󰭻 ", color = "magenta" } },
           { "<leader>t", group = "Toggle", icon = { icon = " ", color = "cyan" } },
+          { "<leader>ty", group = "Typr", icon = { icon = "󰌌 ", color = "green" } },
+          { "<leader>tn", group = "Nomodoro", icon = { icon = " ", color = "red" } },
         },
       },
     },

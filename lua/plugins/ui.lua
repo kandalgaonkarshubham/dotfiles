@@ -171,6 +171,7 @@ return {
             { LazyVim.lualine.pretty_path() },
           },
           lualine_x = {
+            require('nomodoro').status,
             Snacks.profiler.status(),
             -- stylua: ignore
             -- {
