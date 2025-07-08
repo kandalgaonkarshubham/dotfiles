@@ -43,21 +43,53 @@ return {
     event = "VeryLazy",
     version = "*",
     opts = {
-      provider = "claude", -- "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" |
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-7-sonnet-20250219", -- your desired model (or use gpt-4o, etc.)
-        timeout = 30000, -- timeout in milliseconds
-        temperature = 0, -- adjust if needed
-        max_tokens = 4096,
-        -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+      provider = "gemini", -- "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" |
+      providers = {
+        gemini = {
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+          model = "gemini-2.5-flash",
+          timeout = 30000, -- Timeout in milliseconds
+          context_window = 1048576,
+          use_ReAct_prompt = true,
+          extra_request_body = {
+            generationConfig = {
+              temperature = 0.75,
+            },
+          },
+        },
       },
       behaviour = {
         support_paste_from_clipboard = true,
       },
+      files = {
+        add_current = "<leader>ac", -- Add current buffer to selected files
+        add_all_buffers = "<leader>aB", -- Add all buffer files to selected files
+      },
       file_selector = {
         provider = "snacks", -- "native" | "fzf" | "mini.pick" | "snacks" | "telescope"
-        provider_opts = {},
+      },
+      selector = {
+        exclude_auto_select = { "NvimTree" },
+      },
+    },
+    keys = {
+      {
+        "<leader>a+",
+        function()
+          local tree_ext = require("avante.extensions.nvim_tree")
+          tree_ext.add_file()
+        end,
+        desc = "Select file in NvimTree",
+        ft = "NvimTree",
+      },
+      {
+        "<leader>a-",
+        function()
+          local tree_ext = require("avante.extensions.nvim_tree")
+          tree_ext.remove_file()
+        end,
+        desc = "Deselect file in NvimTree",
+        ft = "NvimTree",
       },
     },
     build = "make",
