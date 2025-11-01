@@ -18,24 +18,30 @@ return {
     "dbinagi/nomodoro",
     cmd = { "NomoMenu", "NomoWork", "NomoBreak", "NomoStop", "NomoStatus", "NomoTimer", "NomoPause", "NomoContinue" },
     config = function()
-      require('nomodoro').setup({
-          work_time = 30,
-          short_break_time = 10,
-          long_break_time = 20,
-          break_cycle = 4,
-          menu_available = true,
-          texts = {
-              on_break_complete = "Back to greatness!",
-              on_work_complete = "Time to breathe!",
-              status_icon = "󰔟 ",
-              timer_format = '!%0M:%0S'
-          },
-          on_work_complete = function()
-              vim.fn.jobstart({ "mpv", "--no-terminal", "--no-cache", vim.fn.expand("~/.config/nvim/sounds/alert.wav") }, { detach = true })
-          end,
-          on_break_complete = function()
-              vim.fn.jobstart({ "mpv", "--no-terminal", "--no-cache", vim.fn.expand("~/.config/nvim/sounds/alert.wav") }, { detach = true })
-          end,
+      require("nomodoro").setup({
+        work_time = 60,
+        short_break_time = 10,
+        long_break_time = 20,
+        break_cycle = 4,
+        menu_available = true,
+        texts = {
+          on_break_complete = "Back to greatness!",
+          on_work_complete = "Time to breathe!",
+          status_icon = "󰔟 ",
+          timer_format = "!%0M:%0S",
+        },
+        on_work_complete = function()
+          vim.fn.jobstart(
+            { "mpv", "--no-terminal", "--no-cache", vim.fn.expand("~/.config/nvim/sounds/alert.wav") },
+            { detach = true }
+          )
+        end,
+        on_break_complete = function()
+          vim.fn.jobstart(
+            { "mpv", "--no-terminal", "--no-cache", vim.fn.expand("~/.config/nvim/sounds/alert.wav") },
+            { detach = true }
+          )
+        end,
       })
     end,
     keys = {
@@ -57,5 +63,19 @@ return {
       { "<leader>typ", "<cmd>Typr<cr>", desc = "T[yp]r" },
       { "<leader>tys", "<cmd>TyprStats<cr>", desc = "T[y]pr [s]tats" },
     },
+  },
+  {
+    "nguyenvukhang/nvim-toggler",
+    config = function()
+      require("nvim-toggler").setup({
+        inverses = {
+          ["vim"] = "emacs",
+        },
+        autoselect_longest_match = false,
+      })
+      vim.keymap.set({ "n", "v" }, "<leader>i", function()
+        require("nvim-toggler").toggle()
+      end, { noremap = true, silent = true, desc = "[i]nverse word" })
+    end,
   },
 }
