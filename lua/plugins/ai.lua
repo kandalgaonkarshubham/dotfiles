@@ -1,43 +1,8 @@
--- if true then
---   return {}
--- end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+if true then
+  return {}
+end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 return {
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      "Kaiser-Yang/blink-cmp-avante",
-      "rafamadriz/friendly-snippets",
-      {
-        "saghen/blink.compat",
-        optional = true,
-        opts = {},
-        version = not vim.g.lazyvim_blink_main and "*",
-      },
-    },
-    event = "InsertEnter",
-    enabled = function()
-      return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
-    end,
-    opts = {
-      sources = {
-        compat = {},
-        default = { "avante", "lsp", "path", "snippets", "buffer" },
-        providers = {
-          avante = {
-            module = "blink-cmp-avante",
-            name = "Avante",
-            opts = {
-              -- options for blink-cmp-avante
-            },
-          },
-        },
-      },
-      cmdline = {
-        enabled = true,
-      },
-    },
-  },
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
