@@ -67,16 +67,31 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       table.insert(opts.ensure_installed, "prettierd")
+      table.insert(opts.ensure_installed, "eslint_d")
+      table.insert(opts.ensure_installed, "sonarlint-language-server")
     end,
   },
   {
     "stevearc/conform.nvim",
-    opts = function(_, opts)  
-      formatters_by_ft = {
-        javascript ={ "prettierd", stop_after_first = true },
-        typescript ={ "prettierd", stop_after_first = true },
-        vue ={ "prettierd", stop_after_first = true },
-      }
+    opts = function(_, opts)
+      opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        vue = { "prettierd" },
+      })
     end,
-  }
+  },
+  {
+    "mfussenegger/nvim-lint",
+    opts = function(_, opts)
+      opts.linters_by_ft = vim.tbl_extend("force", opts.linters_by_ft or {}, {
+        ["*"] = { "eslint_d" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+        vue = { "eslint_d" },
+      })
+    end,
+  },
 }
