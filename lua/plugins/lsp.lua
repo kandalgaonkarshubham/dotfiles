@@ -86,11 +86,14 @@ return {
     opts = function(_, opts)
       opts.linters_by_ft = vim.tbl_extend("force", opts.linters_by_ft or {}, {
         ["*"] = { "eslint_d" },
+        ["_"] = { "eslint_d" },
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         typescript = { "eslint_d" },
         typescriptreact = { "eslint_d" },
         vue = { "eslint_d" },
+        html = { "eslint_d" },
+        php = { "eslint_d" },
       })
     end,
   },
