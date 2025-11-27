@@ -22,4 +22,5 @@ vim.opt.showbreak = "↪ "
 vim.g.lazyvim_prettier_needs_config = true
 
 --! [[ Disable AutoFormatting ]]
+vim.g.lazyvim_eslint_auto_format = false
 vim.g.autoformat = false
