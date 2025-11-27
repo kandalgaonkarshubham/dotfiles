@@ -39,7 +39,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>cc",
+        "<leader>csc",
         ":CodeSnap<cr>",
         mode = "x",
         noremap = true,
@@ -47,7 +47,7 @@ return {
         desc = "Copy selected code snapshot into [c]lipboard",
       },
       {
-        "<leader>ca",
+        "<leader>csa",
         ":CodeSnapSave<cr>",
         mode = "x",
         noremap = true,
@@ -68,4 +68,18 @@ return {
     event = "VeryLazy",
   },
   { "pbogut/vim-dadbod-ssh" },
+  {
+    "esmuellert/vscode-diff.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    keys = {
+      {
+        "<leader>gc",
+        ":CodeDiff<cr>",
+        mode = "n",
+        noremap = true,
+        silent = true,
+        desc = "Git Diff (vs[c]ode)",
+      },
+    },
+  },
 }

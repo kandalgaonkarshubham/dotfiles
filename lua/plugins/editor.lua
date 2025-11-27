@@ -94,6 +94,7 @@ return {
           { "<leader>t", group = "Toggle", icon = { icon = " ", color = "cyan" } },
           { "<leader>ty", group = "Typr", icon = { icon = "󰌌 ", color = "green" } },
           { "<leader>tn", group = "Nomodoro", icon = { icon = " ", color = "red" } },
+          { "<leader>cs", group = "CodeSnap", icon = { icon = "", color = "yellow" } },
         },
       },
     },

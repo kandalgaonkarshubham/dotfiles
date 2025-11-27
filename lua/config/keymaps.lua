@@ -68,3 +68,6 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.cmd.normal("yiw") -- yank inner word
   vim.cmd.normal("oconsole.log('" .. esc .. "pa:" .. esc .. "la, " .. esc .. "pl")
 end, { desc = "Console log word under cursor" })
+
+
+-- ? [[ Plugin Keymaps ]]
