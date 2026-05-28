@@ -18,7 +18,7 @@ return {
   { "shaunsingh/nord.nvim", priority = 1000 },
   { "olivercederborg/poimandres.nvim", priority = 1000 },
   { "rose-pine/neovim", name = "rose-pine" },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "mhartington/oceanic-next" },
   { "eldritch-theme/eldritch.nvim", priority = 1000 },
   { "lunarvim/horizon.nvim", priority = 1000 },
