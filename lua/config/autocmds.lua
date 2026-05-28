@@ -69,9 +69,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end
   end,
 })
-
---* [[ MACROS ]]
-
--- ? [[ Console.log ]]
--- local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
--- vim.fn.setreg("l", "yoconsole.log('" .. esc .. "pa:" .. esc .. "la, " .. esc .. "pl")

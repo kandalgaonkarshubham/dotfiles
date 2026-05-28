@@ -22,20 +22,12 @@ return {
     },
   },
   {
-    "atiladefreitas/dooing",
-    event = "VeryLazy",
-    config = function()
-      require("dooing").setup({})
-    end,
-  },
-  {
-    "ellisonleao/glow.nvim",
-    cmd = "Glow",
-    config = true,
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
   },
   {
     "mistricky/codesnap.nvim",
-    build = "make",
     event = "VeryLazy",
     keys = {
       {
@@ -67,7 +59,7 @@ return {
     "zeioth/garbage-day.nvim",
     event = "VeryLazy",
   },
-  { "pbogut/vim-dadbod-ssh" },
+  -- { "pbogut/vim-dadbod-ssh" },
   {
     "esmuellert/vscode-diff.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },

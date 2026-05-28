@@ -14,59 +14,18 @@ vim.keymap.set("i", "jj", "<ESC>", { silent = true })
 --* [[ Save File ]]
 vim.keymap.set("n", "<leader>bs", ":w<CR>", { noremap = true, silent = true, desc = "Save Buffer" })
 
---* [[ Function to open a file in a floating window ]]
-local function open_floating_window(file_path)
-  -- Create a new buffer
-  local buf = vim.api.nvim_create_buf(false, true) -- No file, buffer is scratch
-
-  -- Set the floating window dimensions
-  local width = math.floor(vim.o.columns * 0.8)
-  local height = math.floor(vim.o.lines * 0.8)
-  local row = math.floor((vim.o.lines - height) / 2)
-  local col = math.floor((vim.o.columns - width) / 2)
-
-  -- Create the floating window
-  vim.api.nvim_open_win(buf, true, {
-    relative = "editor",
-    width = width,
-    height = height,
-    row = row,
-    col = col,
-    style = "minimal",
-    border = "rounded", -- Optional: 'single', 'double', 'solid', or 'none'
-  })
-
-  -- Load the file into the buffer
-  vim.api.nvim_buf_set_option(buf, "modifiable", true)
-  vim.cmd("edit " .. file_path)
-
-  -- Check the file extension
-  local ext = file_path:match("^.+(%..+)$")
-  if ext == ".md" then
-    -- Enable Markdown syntax highlighting
-    vim.cmd("set filetype=markdown")
-  end
-
-  -- Make the buffer non-modifiable
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
-end
---? Key mapping to open Commit Conventions
--- vim.keymap.set("n", "<leader>tc", function()
---   open_floating_window(vim.fn.expand("~/Projects/COMMIT-CONVENTIONS.md"))
--- end, { noremap = true, silent = true, desc = "[c]ommit conventions" })
-
 -- ? [[ Console.log ]]
 local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
 -- Visual mode: wraps selection in console.log(...)
 vim.keymap.set("v", "<leader>cl", function()
   vim.cmd.normal("y") -- yank selection
-  vim.cmd.normal("oconsole.log('" .. esc .. "pa:" .. esc .. "la, " .. esc .. "pl")
+  vim.cmd.normal("oconsole.log('" .. esc .. "pa:', " .. esc .. "pA);" .. esc)
 end, { desc = "Console log selected text" })
 
 -- Normal mode: wraps word under cursor in console.log(...)
 vim.keymap.set("n", "<leader>cl", function()
   vim.cmd.normal("yiw") -- yank inner word
-  vim.cmd.normal("oconsole.log('" .. esc .. "pa:" .. esc .. "la, " .. esc .. "pl")
+  vim.cmd.normal("oconsole.log('" .. esc .. "pa:', " .. esc .. "pA);" .. esc)
 end, { desc = "Console log word under cursor" })
 
 
