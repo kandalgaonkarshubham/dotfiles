@@ -59,13 +59,52 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     local disabled_dirs = {
       "/home/tazerblaze/Projects/wntp",
     }
-
     for _, dir in ipairs(disabled_dirs) do
       if cwd:find(vim.fn.expand(dir)) == 1 then
         vim.b.autoformat = false
         -- print("Autoformat is disabled for this directory.")
         break
       end
+    end
+  end,
+})
+
+-- Fix for snacks.nvim picker crash on Neovim 0.11
+-- Neovim 0.11 removed/moved vim.lsp.protocol._provider_to_client_registration which snacks.nvim expects
+if not vim.lsp.protocol._provider_to_client_registration then
+  vim.lsp.protocol._provider_to_client_registration = {
+    callHierarchyProvider = { "textDocument/prepareCallHierarchy" },
+    codeActionProvider = { "textDocument/codeAction" },
+    codeLensProvider = { "textDocument/codeLens" },
+    colorProvider = { "textDocument/documentColor" },
+    completionProvider = { "textDocument/completion" },
+    declarationProvider = { "textDocument/declaration" },
+    definitionProvider = { "textDocument/definition" },
+    documentFormattingProvider = { "textDocument/formatting" },
+    documentHighlightProvider = { "textDocument/documentHighlight" },
+    documentLinkProvider = { "textDocument/documentLink" },
+    documentOnTypeFormattingProvider = { "textDocument/onTypeFormatting" },
+    documentRangeFormattingProvider = { "textDocument/rangeFormatting" },
+    documentSymbolProvider = { "textDocument/documentSymbol" },
+    executeCommandProvider = { "workspace/executeCommand" },
+    foldingRangeProvider = { "textDocument/foldingRange" },
+    hoverProvider = { "textDocument/hover" },
+    implementationProvider = { "textDocument/implementation" },
+    referencesProvider = { "textDocument/references" },
+    renameProvider = { "textDocument/rename" },
+    selectionRangeProvider = { "textDocument/selectionRange" },
+    signatureHelpProvider = { "textDocument/signatureHelp" },
+    typeDefinitionProvider = { "textDocument/typeDefinition" },
+    workspaceSymbolProvider = { "workspace/symbol" },
+  }
+end
+
+-- Also ensure client-side registration table exists (some plugins might still need it)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and not client._provider_to_client_registration then
+      client._provider_to_client_registration = {}
     end
   end,
 })
