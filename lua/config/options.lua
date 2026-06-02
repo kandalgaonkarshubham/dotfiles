@@ -1,3 +1,10 @@
+--! [[ Disable netrw ]]
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+--! [[ Enable 24-bit colour ]]
+vim.opt.termguicolors = true
+
 --! [[ Line Numbers ]]
 vim.opt.nu = true
 vim.opt.relativenumber = true
