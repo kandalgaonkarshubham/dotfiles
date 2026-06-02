@@ -115,4 +115,104 @@ return {
       },
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    event = "VeryLazy",
+    opts = function()
+      local function lsp_names()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+        if #clients == 0 then
+          return ""
+        end
+
+        local names = {}
+        for _, client in ipairs(clients) do
+          table.insert(names, client.name)
+        end
+
+        return table.concat(names, ", ")
+      end
+
+      local function recording()
+        local reg = vim.fn.reg_recording()
+        if reg == "" then
+          return ""
+        end
+
+        return "REC @" .. reg
+      end
+
+      return {
+        options = {
+          globalstatus = true,
+          disabled_filetypes = { statusline = { "dashboard", "alpha", "typr", "ministarter", "snacks_dashboard" } },
+          theme = "auto",
+          component_separators = '',
+          section_separators = { left = '', right = '' },
+        },
+
+        sections = {
+          lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+
+          lualine_b = {
+            "branch",
+            {
+              -- show file status
+              function()
+                if vim.bo.modified then
+                  return ""
+                elseif not vim.bo.modifiable or vim.bo.readonly then
+                  return "" -- ReadOnly
+                end
+                return ""
+              end,
+              color = function()
+                if vim.bo.modified then
+                  return { fg = "#ff4500" }
+                elseif not vim.bo.modifiable or vim.bo.readonly then
+                  return { fg = "#ff007f" }
+                end
+                return { fg = "#39ff14" }
+              end,
+            },
+          },
+
+          lualine_c = {
+            {
+              "filename",
+              path = 0, -- filename only
+            },
+          },
+
+          lualine_x = {
+            {
+              "diagnostics",
+              sources = { "nvim_diagnostic" },
+            },
+
+            {
+              "filetype",
+              icon_only = false,
+            },
+
+            lsp_names,
+
+            "searchcount",
+
+            recording,
+          },
+
+          lualine_y = {},
+
+          lualine_z = {
+            { 'location', separator = { right = '' }, left_padding = 2 },
+          },
+        },
+      }
+    end,
+  },
 }
