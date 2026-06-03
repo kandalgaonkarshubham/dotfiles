@@ -97,17 +97,17 @@ return {
 
       lint.linters_by_ft = {
         dotenv = { "dotenv_linter" },
-        javascript = { "eslint", "sonarlint-language-server" },
-        typescript = { "eslint", "sonarlint-language-server" },
-        javascriptreact = { "eslint", "sonarlint-language-server" },
-        typescriptreact = { "eslint", "sonarlint-language-server" },
-        html = { "eslint", "sonarlint-language-server" },
-        css = { "eslint", "sonarlint-language-server" },
-        json = { "eslint", "sonarlint-language-server" },
-        vue = { "eslint", "sonarlint-language-server" },
-        markdown = { "eslint", "sonarlint-language-server" },
-        lua = { "eslint", "sonarlint-language-server" },
-        php = { "eslint", "sonarlint-language-server" },
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        javascriptreact = { "eslint" },
+        typescriptreact = { "eslint" },
+        html = { "eslint" },
+        css = { "eslint" },
+        json = { "eslint" },
+        vue = { "eslint" },
+        markdown = { "eslint" },
+        lua = { "eslint" },
+        php = { "eslint" },
       }
 
       vim.api.nvim_create_autocmd(
@@ -118,6 +118,55 @@ return {
           end,
         }
       )
+    end,
+  },
+  {
+    "schrieveslaach/sonarlint.nvim",
+    url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+    ft = { "html", "php", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    enabled = true,
+    config = function()
+      require("sonarlint").setup({
+        server = {
+          cmd = {
+            "sonarlint-language-server",
+            -- Ensure that sonarlint-language-server uses stdio channel
+            "-stdio",
+            "-analyzers",
+            -- paths to the analyzers you need, using those for python and java in this example | ~/.local/share/nvim/mason/share/sonarlint-analyzers
+            vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+            vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarphp.jar"),
+            vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+            -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+            -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+            -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+            "--log-level",
+            "DEBUG",
+          },
+          settings = {
+            sonarlint = {
+              test = "test",
+              rules = {
+                ["typescript:S101"] = { level = "on", parameters = { format = "^[A-Z][a-zA-Z0-9]*$" } },
+                ["typescript:S103"] = { level = "on", parameters = { maximumLineLength = 180 } },
+                ["typescript:S106"] = { level = "on" },
+                ["typescript:S107"] = { level = "on", parameters = { maximumFunctionParameters = 7 } },
+              },
+            },
+          },
+        },
+        filetypes = {
+          "html",
+          "php",
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          -- 'python',
+          -- 'cpp',
+          -- 'java',
+        },
+      })
     end,
   },
 }
