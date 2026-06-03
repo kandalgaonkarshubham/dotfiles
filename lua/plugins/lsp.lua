@@ -10,14 +10,19 @@ local lsp_servers = {
   "vue_ls",
   "marksman",
   "prismals",
+  "phpactor",
   "eslint",
 }
-local tools = {
+local linters = {
   "sonarlint-language-server",
-  "prettier",
-  "php-cs-fixer",
   "dotenv-linter",
 }
+local formatters = {
+  "php-cs-fixer",
+  "prettier",
+  "stylua",
+}
+local tools = vim.list_extend(vim.deepcopy(linters), formatters)
 
 return {
   {
