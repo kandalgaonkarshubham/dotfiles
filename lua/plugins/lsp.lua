@@ -18,7 +18,7 @@ local linters = {
   "dotenv-linter",
 }
 local formatters = {
-  "prettier",
+  "prettierd",
   "stylua",
 }
 local tools = vim.list_extend(vim.deepcopy(linters), formatters)
@@ -77,16 +77,16 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
-        php = { "prettier" },
-        html = { "prettier" },
-        css = { "prettier" },
-        json = { "prettier" },
-        vue = { "prettier" },
-        markdown = { "prettier" },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        typescriptreact = { "prettierd" },
+        php = { "prettierd" },
+        html = { "prettierd" },
+        css = { "prettierd" },
+        json = { "prettierd" },
+        vue = { "prettierd" },
+        markdown = { "prettierd" },
       },
     },
   },
