@@ -243,4 +243,52 @@ return {
       { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
     }
   },
+  {
+    "nvim-mini/mini.surround",
+    version = false,
+    config = function()
+      require("mini.surround").setup()
+    end,
+  },
+  {
+    "nvim-mini/mini.extra",
+    version = false,
+    dependencies = {
+      "nvim-mini/mini.pick",
+    },
+    config = function()
+      require("mini.extra").setup()
+
+      local map = vim.keymap.set
+
+      map("n", "<leader>xx", MiniExtra.pickers.diagnostic, { desc = "Diagnostics" })
+    end,
+  },
+  {
+    "nvim-mini/mini.completion",
+    version = false,
+    config = function()
+      require("mini.completion").setup({
+        lsp_completion = {
+          auto_setup = true,
+        }
+      })
+    end,
+  },
+  {
+    "nvim-mini/mini.snippets",
+    version = false,
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      local MiniSnippets = require("mini.snippets")
+      MiniSnippets.setup({
+        snippets = {
+          MiniSnippets.gen_loader.from_lang(), -- loads friendly-snippets
+        },
+      })
+      MiniSnippets.start_lsp_server({ match = false })
+    end,
+  }
 }
