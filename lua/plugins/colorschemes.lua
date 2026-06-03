@@ -8,6 +8,7 @@ return {
   { "mhartington/oceanic-next" },
   { "eldritch-theme/eldritch.nvim", priority = 1000 },
   { "lunarvim/horizon.nvim", priority = 1000 },
+  { "folke/tokyonight.nvim", priority = 1000 },
   {
     "xiyaowong/transparent.nvim",
     event = "VeryLazy",
