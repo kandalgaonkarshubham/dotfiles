@@ -1,10 +1,10 @@
 --? [[ MasonUpdateAllComplete ]]
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "MasonUpdateAllComplete",
---   callback = function()
---     print("mason-update-all has finished")
---   end,
--- })
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MasonUpdateAllComplete',
+  callback = function()
+    print('mason-update-all has finished')
+  end,
+})
 
 --? [[ Disable autoformat for specific directories ]]
 -- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
