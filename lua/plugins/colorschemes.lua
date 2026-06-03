@@ -1,0 +1,73 @@
+-- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+return {
+  { "shaunsingh/nord.nvim", priority = 1000 },
+  { "olivercederborg/poimandres.nvim", priority = 1000 },
+  { "rose-pine/neovim", name = "rose-pine" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "mhartington/oceanic-next" },
+  { "eldritch-theme/eldritch.nvim", priority = 1000 },
+  { "lunarvim/horizon.nvim", priority = 1000 },
+  {
+    "xiyaowong/transparent.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>tt", "<cmd>TransparentToggle<cr>", desc = "Toggle [t]ransparency" },
+    },
+    config = function()
+      require("transparent").setup({
+        extra_groups = {
+          -- Tabline
+          "Winbar",
+          "WinbarNC",
+          "NormalFloat",
+          "FloatBorder",
+          "Folded",
+          -- -- Telescope
+          -- "TelescopeNormal", "TelescopeBorder", "TelescopePromptBorder",
+          -- NeoTree
+          "NeoTreeNormal",
+          "NeoTreeNormalNC",
+          "NeoTreeWinSeparator",
+          -- WhichKey
+          "WhichKey",
+          "WhichKeyNormal",
+          "WhichKeyFloat",
+          "WhichKeyTitle",
+          "WhichKeyBorder",
+          "MasonNormal",
+          "LazyNormal",
+          -- Noice & Notify
+          "NoiceCmdline",
+          "NotifyBackground",
+          "MiniNotifyTitle",
+          "SnacksNotifierTrace",
+          "SnacksNotifierDebug",
+          "SnacksNotifierInfo",
+          "SnacksNotifierWarn",
+          "SnacksNotifierError",
+          "SnacksNotifierBorderTrace",
+          "SnacksNotifierBorderDebug",
+          "SnacksNotifierBorderInfo",
+          "SnacksNotifierBorderWarn",
+          "SnacksNotifierBorderError",
+          -- Lsps Misc
+          "LspInlayHint",
+          "LspInfoBorder",
+          "DiagnosticVirtualTextHint",
+          -- Bufferline
+          "BufferCurrent",
+          "BufferCurrentMod",
+          "BufferCurrentSign",
+          "BufferCurrentTarget",
+          "BufferCurrentIndex",
+          "BufferTabpageFill",
+          "BufferLineFill",
+          "Tabline",
+          "TablineFill",
+        },
+        on_clear = function() end,
+      })
+    end,
+  }
+}
