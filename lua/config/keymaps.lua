@@ -64,3 +64,25 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor center
 -- end, { desc = "Toggle Builtin Undotree" })
 
 -- ? [[ Plugin Keymaps ]]
+
+-- Completion keymaps (mini.completion)
+local function pumvisible()
+  return vim.fn.pumvisible() ~= 0
+end
+
+vim.keymap.set("i", "<CR>", function()
+  if pumvisible() then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return "<C-y>"
+    end
+  end
+  return "<CR>"
+end, { expr = true, replace_keycodes = true, desc = "Confirm completion" })
+
+vim.keymap.set("i", "<Tab>", function()
+  return pumvisible() and "<C-n>" or "<Tab>"
+end, { expr = true, replace_keycodes = true, desc = "Next completion item" })
+
+vim.keymap.set("i", "<S-Tab>", function()
+  return pumvisible() and "<C-p>" or "<S-Tab>"
+end, { expr = true, replace_keycodes = true, desc = "Previous completion item" })
