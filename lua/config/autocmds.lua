@@ -1,10 +1,10 @@
 --? [[ MasonUpdateAllComplete ]]
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'MasonUpdateAllComplete',
-  callback = function()
-    print('mason-update-all has finished')
-  end,
-})
+-- vim.api.nvim_create_autocmd('User', {
+--   pattern = 'MasonUpdateAllComplete',
+--   callback = function()
+--     print('mason-update-all has finished')
+--   end,
+-- })
 
 --? [[ Disable autoformat for specific directories ]]
 -- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -24,14 +24,3 @@ vim.api.nvim_create_autocmd('User', {
 --     end
 --   end,
 -- })
-
---? [[ Lsp Autocomplete ]]
--- vim.api.nvim_create_autocmd("LspAttach", {
---   callback = function(ev)
---     local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
---     if client:supports_method('textDocument/completion') then
---       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
---     end
---   end,
--- })
--- vim.opt.complete:append('o')
