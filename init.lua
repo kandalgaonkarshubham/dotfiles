@@ -6,3 +6,4 @@ require("config.autocmds")
 require("config.keymaps")
 
 require("plugins.colorscheme")
+require("plugins.editor")
