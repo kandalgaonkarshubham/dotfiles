@@ -42,11 +42,11 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
 
 --! [[ Autocompletion ]]
-vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
-vim.opt.shortmess:append("c")
+-- vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
+-- vim.opt.shortmess:append("c")
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.isfname:append("@-@")
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 vim.opt.scrolloff = 8
 vim.opt.autocomplete = true
 
