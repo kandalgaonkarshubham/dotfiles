@@ -5,4 +5,4 @@ require("config.options")
 require("config.autocmds")
 require("config.keymaps")
 
-require("plugins")
+require("plugins.colorscheme")
