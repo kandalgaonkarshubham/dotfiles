@@ -1,11 +1,6 @@
--- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+vim.pack.add({
+  -- Commandline completions
+  { src = "https://github.com/nvim-mini/mini.cmdline" },
+})
 
-return {
-  {
-    "nvim-mini/mini.cmdline",
-    version = false,
-    config = function()
-      require("mini.cmdline").setup()
-    end,
-  }
-}
+require("mini.cmdline").setup()

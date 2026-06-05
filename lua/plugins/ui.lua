@@ -1,20 +1,16 @@
--- if true then return {} end --! WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+vim.pack.add({
+  -- Noice
+  { src = "https://github.com/folke/noice.nvim" },
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
+  { src = "https://github.com/rcarriga/nvim-notify"}
 
-return {
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    opts = {
-      presets = {
-        command_palette = true,
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,
-        long_message_to_split = true,
-      },
-    },
+})
+
+require("noice").setup({
+  presets = {
+    command_palette = true,
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = true,
+    long_message_to_split = true,
   }
-}
+})
