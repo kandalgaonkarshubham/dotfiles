@@ -48,7 +48,6 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.isfname:append("@-@")
 -- vim.opt.guicursor = ""
 vim.opt.scrolloff = 8
-vim.opt.autocomplete = true
 
 --! [[ Column Line ]]
 vim.opt.colorcolumn = "0"
