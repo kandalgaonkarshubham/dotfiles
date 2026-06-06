@@ -236,7 +236,7 @@ require("blink.cmp").setup({
 		documentation = { auto_show = true },
 	},
 	signature = { enabled = true },
-	fuzzy = { implementation = "lua" },
+	fuzzy = { implementation = "prefer_rust_with_warning" },
 	sources = {
 		default = {
 			"lsp",
@@ -252,5 +252,10 @@ require("blink.cmp").setup({
 				score_offset = 90,
 			},
 		},
+	},
+	cmdline = {
+		keymap = { preset = "inherit" },
+		completion = { menu = { auto_show = true } },
+    sources = { 'buffer', 'cmdline' },
 	},
 })
