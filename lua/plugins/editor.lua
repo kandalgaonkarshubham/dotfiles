@@ -17,11 +17,8 @@ vim.pack.add({
   { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.extra" },
   { src = "https://github.com/nvim-mini/mini.pick" },
-  { src = "https://github.com/nvim-mini/mini.completion" },
-  { src = "https://github.com/nvim-mini/mini.snippets" },
-
-  -- snippets
-  { src = "https://github.com/rafamadriz/friendly-snippets" },
+  -- { src = "https://github.com/nvim-mini/mini.completion" },
+  -- { src = "https://github.com/nvim-mini/mini.snippets" },
 })
 
 --------------------------------------------------------------------------------
@@ -353,20 +350,20 @@ map("n", "<leader>xx", MiniExtra.pickers.diagnostic, {
   desc = "Diagnostics",
 })
 
-require("mini.completion").setup({
-  lsp_completion = {
-    auto_setup = true,
-  },
-})
+-- require("mini.completion").setup({
+--   lsp_completion = {
+--     auto_setup = true,
+--   },
+-- })
 
-local MiniSnippets = require("mini.snippets")
+-- local MiniSnippets = require("mini.snippets")
 
-MiniSnippets.setup({
-  snippets = {
-    MiniSnippets.gen_loader.from_lang(),
-  },
-})
+-- MiniSnippets.setup({
+--   snippets = {
+--     MiniSnippets.gen_loader.from_lang(),
+--   },
+-- })
 
-MiniSnippets.start_lsp_server({
-  match = false,
-})
+-- MiniSnippets.start_lsp_server({
+--   match = false,
+-- })
