@@ -47,7 +47,10 @@ local formatters = {
 local tools = vim.list_extend(vim.deepcopy(linters), formatters)
 
 -- lsp
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = false,
+})
 vim.lsp.enable(lsp_servers)
 vim.api.nvim_create_autocmd(
 	"LspAttach",
