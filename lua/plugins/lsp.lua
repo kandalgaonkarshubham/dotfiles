@@ -118,45 +118,43 @@ vim.api.nvim_create_autocmd(
   }
 )
 
--- require("sonarlint").setup({
---   server = {
---     cmd = {
---       "sonarlint-language-server",
---       "-stdio",
---       "-analyzers",
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarphp.jar"),
---       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
---       -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
---       -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
---       -- vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
---       "--log-level",
---       "DEBUG",
---     },
---     settings = {
---       sonarlint = {
---         test = "test",
---         rules = {
---           ["typescript:S101"] = { level = "on", parameters = { format = "^[A-Z][a-zA-Z0-9]*$" } },
---           ["typescript:S103"] = { level = "on", parameters = { maximumLineLength = 180 } },
---           ["typescript:S106"] = { level = "on" },
---           ["typescript:S107"] = { level = "on", parameters = { maximumFunctionParameters = 7 } },
---         },
---       },
---     },
---   },
---   filetypes = {
---     "html",
---     "php",
---     "javascript",
---     "typescript",
---     "javascriptreact",
---     "typescriptreact",
---     -- 'python',
---     -- 'cpp',
---     -- 'java',
---   },
--- })
+local sonarlint_ft = {
+  -- "c",
+  -- "cpp",
+  "css",
+  "docker",
+  "html",
+  -- "java",
+  "javascript",
+  "javascriptreact",
+  "php",
+  -- "python",
+  "typescript",
+  "typescriptreact",
+  "xml",
+  "yaml.docker-compose",
+}
+local analyzers_path = vim.fn.stdpath "data" .. "/mason/packages/sonarlint-language-server/extension/analyzers/"
+require("sonarlint").setup({
+  server = {
+    cmd = {
+      "sonarlint-language-server",
+      "-stdio",
+      "-analyzers",
+      analyzers_path .. "sonarhtml.jar",
+      analyzers_path .. "sonariac.jar",
+      -- analyzers_path .. "sonarjava.jar",
+      -- analyzers_path .. "sonarjavasymbolicexecution.jar",
+      analyzers_path .. "sonarjs.jar",
+      analyzers_path .. "sonarphp.jar",
+      -- analyzers_path .. "sonarpython.jar",
+      analyzers_path .. "sonarxml.jar",
+      "--log-level",
+      "DEBUG",
+    }
+  },
+  filetypes = sonarlint_ft,
+})
 
 -- stevearc/conform.nvim
 require("conform").setup({
