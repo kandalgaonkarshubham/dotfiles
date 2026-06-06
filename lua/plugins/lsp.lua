@@ -257,6 +257,6 @@ require("blink.cmp").setup({
 	cmdline = {
 		keymap = { preset = "inherit" },
 		completion = { menu = { auto_show = true } },
-    sources = { 'buffer', 'cmdline' },
+    -- sources = { 'buffer', 'cmdline' },
 	},
 })
