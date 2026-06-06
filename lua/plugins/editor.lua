@@ -20,6 +20,8 @@ vim.pack.add({
 
   -- Git
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://github.com/esmuellert/vscode-diff.nvim" },
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
 })
 
 --------------------------------------------------------------------------------
@@ -431,4 +433,11 @@ require("gitsigns").setup({
       desc = "Select Git hunk",
     })
   end,
+})
+
+require("vscode-diff").setup()
+vim.keymap.set("n", "<leader>gc", ":CodeDiff<cr>", {
+  noremap = true,
+  silent = true,
+  desc = "Git Diff (vs[c]ode)",
 })
