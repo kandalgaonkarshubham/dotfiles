@@ -237,8 +237,20 @@ require("blink.cmp").setup({
 		},
 	},
 	cmdline = {
-		keymap = { preset = "inherit" },
-		completion = { menu = { auto_show = true } },
-    -- sources = { 'buffer', 'cmdline' },
+		keymap = {
+			preset = "cmdline",
+			["<Tab>"] = { "show", "accept" },
+			["<S-Tab>"] = { "show", "select_prev" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<Up>"] = { "select_prev", "fallback" },
+			["<CR>"] = { "fallback" },
+		},
+		completion = {
+			menu = {
+				auto_show = function(ctx)
+					return vim.fn.getcmdtype() == ":"
+				end,
+			},
+		},
 	},
 })
