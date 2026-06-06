@@ -262,6 +262,7 @@ require("snacks").setup({
 
   explorer = {},
   lazygit = {},
+  terminal = {}
 })
 
 local map = vim.keymap.set

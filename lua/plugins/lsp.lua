@@ -13,6 +13,8 @@ vim.pack.add({
 
   -- Formatters
   { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/windwp/nvim-ts-autotag" },
+  { src = "https://github.com/rachartier/tiny-code-action.nvim" },
 })
 
 local lsp_servers = {
@@ -38,43 +40,96 @@ local formatters = {
 }
 local tools = vim.list_extend(vim.deepcopy(linters), formatters)
 
--- neovim/nvim-lspconfig
-vim.diagnostic.config({ virtual_text = true })
+-- lsp
+-- vim.diagnostic.config({ virtual_text = true })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend(
-  "force",
-  capabilities,
-  require("mini.completion").get_lsp_capabilities()
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = vim.tbl_deep_extend(
+--   "force",
+--   capabilities,
+--   require("mini.completion").get_lsp_capabilities()
+-- )
+
+-- vim.lsp.config("*", { capabilities = capabilities })
+
+-- vim.lsp.config("lua_ls", {
+--   settings = {
+--     Lua = {
+--       diagnostics = { globals = { "vim" } },
+--     },
+--   },
+-- })
+
+-- vim.lsp.enable(lsp_servers)
+vim.api.nvim_create_autocmd(
+	"LspAttach",
+	{ --  Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
+		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+		callback = function(ev)
+			vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc" -- Enable completion triggered by <c-x><c-o>
+
+			local opts = function(desc)
+				return { buffer = ev.buf, silent = true, desc = desc }
+			end
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
+			vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts("Hover documentation"))
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Go to implementation"))
+			vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts("Go to type definition"))
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts("Rename symbol"))
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("Find references"))
+
+			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+				require("tiny-code-action").code_action()
+			end, opts("Code action"))
+			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts("Format buffer"))
+
+			vim.keymap.set("n", "<leader>d", function()
+				vim.diagnostic.open_float({
+					border = "rounded",
+				})
+			end, opts("Show diagnostics float"))
+		end,
+	}
 )
 
-vim.lsp.config("*", { capabilities = capabilities })
-
-vim.lsp.config("lua_ls", {
-  settings = {
-    Lua = {
-      diagnostics = { globals = { "vim" } },
-    },
-  },
-})
-
-vim.lsp.enable(lsp_servers)
-
--- mason-org/mason-lspconfig.nvim
+-- mason
 require("mason-lspconfig").setup({
   ensure_installed = lsp_servers,
 })
-
--- WhoIsSethDaniel/mason-tool-installer.nvim
 require("mason").setup()
 require("mason-tool-installer").setup({
   ensure_installed = tools,
 })
-
--- RubixDev/mason-update-all
 require("mason-update-all").setup()
 
--- schrieveslaach/sonarlint.nvim (https://gitlab.com/schrieveslaach/sonarlint.nvim)
+-- linting
+
+local lint = require("lint")
+
+lint.linters_by_ft = {
+  dotenv = { "dotenv_linter" },
+  javascript = { "eslint" },
+  typescript = { "eslint" },
+  javascriptreact = { "eslint" },
+  typescriptreact = { "eslint" },
+  html = { "eslint" },
+  css = { "eslint" },
+  json = { "eslint" },
+  vue = { "eslint" },
+  markdown = { "eslint" },
+  lua = { "eslint" },
+  php = { "eslint" },
+}
+
+vim.api.nvim_create_autocmd(
+  { "BufEnter", "BufWritePost", "InsertLeave" },
+  {
+    callback = function()
+      lint.try_lint()
+    end,
+  }
+)
+
 require("sonarlint").setup({
   server = {
     cmd = {
@@ -132,29 +187,4 @@ require("conform").setup({
   },
 })
 
--- mfussenegger/nvim-lint
-local lint = require("lint")
-
-lint.linters_by_ft = {
-  dotenv = { "dotenv_linter" },
-  javascript = { "eslint" },
-  typescript = { "eslint" },
-  javascriptreact = { "eslint" },
-  typescriptreact = { "eslint" },
-  html = { "eslint" },
-  css = { "eslint" },
-  json = { "eslint" },
-  vue = { "eslint" },
-  markdown = { "eslint" },
-  lua = { "eslint" },
-  php = { "eslint" },
-}
-
-vim.api.nvim_create_autocmd(
-  { "BufEnter", "BufWritePost", "InsertLeave" },
-  {
-    callback = function()
-      lint.try_lint()
-    end,
-  }
-)
+require("nvim-ts-autotag").setup()
