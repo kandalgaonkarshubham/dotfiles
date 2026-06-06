@@ -18,6 +18,7 @@ vim.pack.add({
 
   -- Completions
   { src = "https://github.com/L3MON4D3/LuaSnip" },
+  { src = "https://github.com/Saghen/blink.lib" },
 	{ src = "https://github.com/Saghen/blink.cmp" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 })
@@ -98,12 +99,12 @@ vim.api.nvim_create_autocmd(
 )
 
 -- mason
-require("mason-lspconfig").setup({
-  ensure_installed = lsp_servers,
-})
 require("mason").setup()
 require("mason-tool-installer").setup({
   ensure_installed = tools,
+})
+require("mason-lspconfig").setup({
+  ensure_installed = lsp_servers,
 })
 require("mason-update-all").setup()
 
@@ -236,7 +237,7 @@ require("blink.cmp").setup({
 		documentation = { auto_show = true },
 	},
 	signature = { enabled = true },
-	fuzzy = { implementation = "prefer_rust_with_warning" },
+	fuzzy = { implementation = "lua" },
 	sources = {
 		default = {
 			"lsp",

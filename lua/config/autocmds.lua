@@ -56,3 +56,57 @@
 -- 		vim.bo.filetype = "dosini"
 -- 	end,
 -- })
+
+-- Update all vim.pack plugins
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.notify("Updating vim.pack plugins...", vim.log.levels.INFO)
+	vim.pack.update()
+end, {
+	desc = "Update all vim.pack plugins",
+})
+
+-- Remove plugins that are no longer declared in vim.pack.add()
+vim.api.nvim_create_user_command("PackClean", function()
+	local inactive = vim.iter(vim.pack.get())
+		:filter(function(plugin)
+			return not plugin.active
+		end)
+		:map(function(plugin)
+			return plugin.spec.name
+		end)
+		:totable()
+
+	if #inactive == 0 then
+		vim.notify("No inactive plugins to remove", vim.log.levels.INFO)
+		return
+	end
+
+	vim.pack.del(inactive)
+
+	vim.notify(
+		"Removed: " .. table.concat(inactive, ", "),
+		vim.log.levels.INFO
+	)
+end, {
+	desc = "Remove plugins not declared in vim.pack.add()",
+})
+
+-- Update plugins and remove inactive ones
+vim.api.nvim_create_user_command("PackSync", function()
+	vim.pack.update()
+
+	local inactive = vim.iter(vim.pack.get())
+		:filter(function(plugin)
+			return not plugin.active
+		end)
+		:map(function(plugin)
+			return plugin.spec.name
+		end)
+		:totable()
+
+	if #inactive > 0 then
+		vim.pack.del(inactive)
+	end
+end, {
+	desc = "Update plugins and remove inactive ones",
+})
