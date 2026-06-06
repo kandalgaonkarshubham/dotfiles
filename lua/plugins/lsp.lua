@@ -200,14 +200,16 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 require("blink.cmp").setup({
 	snippets = { preset = "luasnip" },
-	keymap = {
-		preset = "default",
-		["<Tab>"] = { "accept", "fallback" },
-		["<CR>"] = { "accept", "fallback" },
-		["<S-Tab>"] = { "show" },
-		["<S-j>"] = { "select_next", "fallback" },
-		["<S-k>"] = { "select_prev", "fallback" },
-	},
+  keymap = {
+    preset = "default",
+    ["<Tab>"] = { "accept", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
+    ["<S-Tab>"] = { "show" },
+    ["<S-j>"] = { "select_next", "fallback" },
+    ["<S-k>"] = { "select_prev", "fallback" },
+    ["<Down>"] = { "select_next", "fallback" },
+    ["<Up>"] = { "select_prev", "fallback" },
+  },
 	completion = {
 		menu = {
 			auto_show = true,
