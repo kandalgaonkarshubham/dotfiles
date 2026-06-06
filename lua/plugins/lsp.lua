@@ -47,26 +47,8 @@ local formatters = {
 local tools = vim.list_extend(vim.deepcopy(linters), formatters)
 
 -- lsp
--- vim.diagnostic.config({ virtual_text = true })
-
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = vim.tbl_deep_extend(
---   "force",
---   capabilities,
---   require("mini.completion").get_lsp_capabilities()
--- )
-
--- vim.lsp.config("*", { capabilities = capabilities })
-
--- vim.lsp.config("lua_ls", {
---   settings = {
---     Lua = {
---       diagnostics = { globals = { "vim" } },
---     },
---   },
--- })
-
--- vim.lsp.enable(lsp_servers)
+vim.diagnostic.config({ virtual_text = true })
+vim.lsp.enable(lsp_servers)
 vim.api.nvim_create_autocmd(
 	"LspAttach",
 	{ --  Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
