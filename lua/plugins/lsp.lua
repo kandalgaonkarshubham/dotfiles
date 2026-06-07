@@ -122,43 +122,88 @@ vim.api.nvim_create_autocmd(
   }
 )
 
--- local sonarlint_ft = {
---   -- "c",
---   -- "cpp",
---   "css",
---   "docker",
---   "html",
---   -- "java",
---   "javascript",
---   "javascriptreact",
---   "php",
---   -- "python",
---   "typescript",
---   "typescriptreact",
---   "xml",
---   "yaml.docker-compose",
--- }
--- local analyzers_path = vim.fn.stdpath "data" .. "/mason/packages/sonarlint-language-server/extension/analyzers/"
--- require("sonarlint").setup({
---   server = {
---     cmd = {
---       "sonarlint-language-server",
---       "-stdio",
---       "-analyzers",
---       analyzers_path .. "sonarhtml.jar",
---       analyzers_path .. "sonariac.jar",
---       -- analyzers_path .. "sonarjava.jar",
---       -- analyzers_path .. "sonarjavasymbolicexecution.jar",
---       analyzers_path .. "sonarjs.jar",
---       analyzers_path .. "sonarphp.jar",
---       -- analyzers_path .. "sonarpython.jar",
---       analyzers_path .. "sonarxml.jar",
---       "--log-level",
---       "DEBUG",
---     }
---   },
---   filetypes = sonarlint_ft,
--- })
+local sonarlint_ft = {
+  -- "c",
+  -- "cpp",
+  "css",
+  "docker",
+  "html",
+  -- "java",
+  "javascript",
+  "javascriptreact",
+  "php",
+  -- "python",
+  "typescript",
+  "typescriptreact",
+  "xml",
+  "yaml.docker-compose",
+}
+local analyzers_path = vim.fn.stdpath "data" .. "/mason/packages/sonarlint-language-server/extension/analyzers/"
+require("sonarlint").setup({
+  server = {
+    cmd = {
+      "sonarlint-language-server",
+      "-stdio",
+      "-analyzers",
+      analyzers_path .. "sonarhtml.jar",
+      analyzers_path .. "sonariac.jar",
+      -- analyzers_path .. "sonarjava.jar",
+      -- analyzers_path .. "sonarjavasymbolicexecution.jar",
+      analyzers_path .. "sonarjs.jar",
+      analyzers_path .. "sonarphp.jar",
+      -- analyzers_path .. "sonarpython.jar",
+      analyzers_path .. "sonarxml.jar",
+      -- "--log-level",
+      -- "DEBUG",
+    },
+    on_attach = function(client, bufnr)
+      if client._notify_overridden then
+        return
+      end
+      client._notify_overridden = true
+
+      -- Force full document sync so we can safely discard intermediate changes when debouncing
+      if client.server_capabilities.textDocumentSync then
+        if type(client.server_capabilities.textDocumentSync) == "table" then
+          client.server_capabilities.textDocumentSync.change = 1 -- Full sync
+        else
+          client.server_capabilities.textDocumentSync = {
+            change = 1,
+            openClose = true,
+          }
+        end
+      end
+
+      local original_notify = client.notify
+      local uv = vim.uv or vim.loop
+      local timer = uv.new_timer()
+
+      client.notify = function(self, method, params)
+        local client_self, actual_method, actual_params
+        if type(self) == "string" then
+          actual_method = self
+          actual_params = method
+          client_self = client
+        else
+          actual_method = method
+          actual_params = params
+          client_self = self
+        end
+
+        if actual_method == "textDocument/didChange" then
+          timer:stop()
+          timer:start(1000, 0, vim.schedule_wrap(function()
+            original_notify(client_self, "textDocument/didChange", actual_params)
+          end))
+          return true
+        else
+          return original_notify(self, method, params)
+        end
+      end
+    end,
+  },
+  filetypes = sonarlint_ft,
+})
 
 -- stevearc/conform.nvim
 require("conform").setup({

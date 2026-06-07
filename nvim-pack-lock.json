@@ -12,6 +12,10 @@
       "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
       "src": "https://github.com/Saghen/blink.lib"
     },
+    "codediff.nvim": {
+      "rev": "5d6aa753797a0ebda14dd769ed03d12a320d689b",
+      "src": "https://github.com/esmuellert/codediff.nvim"
+    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -61,7 +65,7 @@
       "src": "https://github.com/nvim-mini/mini.extra"
     },
     "mini.pick": {
-      "rev": "34fdef3b0966974378c4f39e3ddb54ffc628fbe9",
+      "rev": "1ffba38c7221669d3da7792d4bbe1c9761075f4d",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
     "mini.surround": {
@@ -143,10 +147,6 @@
     "transparent.nvim": {
       "rev": "8ac59883de84e9cd1850ea25cf087031c5ba7d54",
       "src": "https://github.com/xiyaowong/transparent.nvim"
-    },
-    "vscode-diff.nvim": {
-      "rev": "5d6aa753797a0ebda14dd769ed03d12a320d689b",
-      "src": "https://github.com/esmuellert/vscode-diff.nvim"
     }
   }
 }
