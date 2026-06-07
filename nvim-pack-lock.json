@@ -64,6 +64,10 @@
       "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "milli.nvim": {
+      "rev": "00274623b76a66356e31e1861360b269987a7f64",
+      "src": "https://github.com/amansingh-afk/milli.nvim"
+    },
     "mini.extra": {
       "rev": "ffb7b3a726e059b011b3655f26e61ec6f7cf5b84",
       "src": "https://github.com/nvim-mini/mini.extra"
