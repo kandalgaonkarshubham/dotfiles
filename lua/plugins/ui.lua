@@ -12,5 +12,14 @@ require("noice").setup({
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = true,
     long_message_to_split = true,
-  }
+  },
+  routes = {
+    {
+      filter = {
+        event = "notify",
+        find = "No information available",
+      },
+      opts = { skip = true },
+    },
+  },
 })
