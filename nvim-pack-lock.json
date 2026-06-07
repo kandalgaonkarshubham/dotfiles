@@ -24,6 +24,10 @@
       "rev": "c9131a5a11f00a2f428f563a4eb2c4aeb680d963",
       "src": "https://github.com/eldritch-theme/eldritch.nvim"
     },
+    "fortune.nvim": {
+      "rev": "1f559ff20b295b083c73c96bf935cad12c72ddca",
+      "src": "https://github.com/rubiin/fortune.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
