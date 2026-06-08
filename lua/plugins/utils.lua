@@ -46,4 +46,4 @@ require("codesnap").setup({
 map("x", "<leader>csc", "<cmd>CodeSnap<CR>", { desc = "Copy code snapshot" })
 map("x", "<leader>csa", "<cmd>CodeSnapSave<CR>", { desc = "Save code snapshot" })
 
-require("garbage-day").setup()
+require("garbage-day").setup({})
