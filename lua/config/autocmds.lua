@@ -110,3 +110,15 @@ vim.api.nvim_create_user_command("PackSync", function()
 end, {
 	desc = "Update plugins and remove inactive ones",
 })
+
+-- Notify of any early startup errors
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		if vim.v.errmsg and vim.v.errmsg ~= "" then
+			vim.schedule(function()
+				vim.notify(vim.v.errmsg, vim.log.levels.ERROR, { title = "Startup Error" })
+			end)
+		end
+	end,
+})
+
