@@ -44,8 +44,8 @@ require("codesnap").setup({
   bg_padding = 0,
   watermark = "",
 })
-map("x", "<leader>csc", "<cmd>CodeSnap<CR>", { desc = "Copy code snapshot" })
-map("x", "<leader>csa", "<cmd>CodeSnapSave<CR>", { desc = "Save code snapshot" })
+map("x", "<leader>csc", "<Esc><cmd>CodeSnap<CR>", { desc = "Copy code snapshot" })
+map("x", "<leader>csa", "<Esc><cmd>CodeSnapSave<CR>", { desc = "Save code snapshot" })
 
 require("garbage-day").setup({})
 
