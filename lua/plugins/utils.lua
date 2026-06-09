@@ -38,14 +38,29 @@ require("hardtime").setup({
 })
 
 require("codesnap").setup({
-  save_path = "~/Pictures/nvim",
-  has_breadcrumbs = true,
   show_workspace = true,
-  bg_padding = 0,
-  watermark = "",
+  snapshot_config = {
+    watermark = {
+      content = "",
+    },
+    window = {
+      margin = {
+        x = 0,
+        y = 0,
+      },
+    },
+    background = {
+      start = { x = 0, y = 0 },
+      ["end"] = { x = "max", y = 0 },
+      stops = {
+        { position = 0, color = "#00000000" },
+        { position = 1, color = "#00000000" },
+      },
+    },
+  },
 })
 map("x", "<leader>csc", "<Esc><cmd>CodeSnap<CR>", { desc = "Copy code snapshot" })
-map("x", "<leader>csa", "<Esc><cmd>CodeSnapSave<CR>", { desc = "Save code snapshot" })
+map("x", "<leader>csa", "<Esc><cmd>CodeSnapSave ~/Pictures/nvim/snap.png<CR>", { desc = "Save code snapshot" })
 
 require("garbage-day").setup({})
 
