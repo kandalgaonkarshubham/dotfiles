@@ -205,7 +205,6 @@ require("sonarlint").setup({
   filetypes = sonarlint_ft,
 })
 
--- stevearc/conform.nvim
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
