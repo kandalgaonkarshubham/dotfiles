@@ -22,7 +22,7 @@ vim.pack.add({
 
   -- Git
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
-  { src = "https://github.com/esmuellert/codediff.nvim" },
+  { src = "https://github.com/barrettruth/diffs.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
 
   -- Folds
@@ -481,11 +481,14 @@ require("gitsigns").setup({
   end,
 })
 
-require("codediff").setup()
-vim.keymap.set("n", "<leader>gc", ":CodeDiff<cr>", {
-  noremap = true,
-  silent = true,
-  desc = "Git Diff (vs[c]ode)",
+vim.g.diffs = {
+  integrations = {
+    gitsigns = true,
+  },
+}
+
+vim.keymap.set("n", "<leader>gc", ":Diff ++layout=split<cr>", {
+  desc = "Git Diff (Split)",
 })
 
 require('ufo').setup({

@@ -100,17 +100,6 @@ local lint = require("lint")
 
 lint.linters_by_ft = {
   dotenv = { "dotenv_linter" },
-  javascript = { "eslint" },
-  typescript = { "eslint" },
-  javascriptreact = { "eslint" },
-  typescriptreact = { "eslint" },
-  html = { "eslint" },
-  css = { "eslint" },
-  json = { "eslint" },
-  vue = { "eslint" },
-  markdown = { "eslint" },
-  lua = { "eslint" },
-  php = { "eslint" },
 }
 
 vim.api.nvim_create_autocmd(
