@@ -22,7 +22,7 @@ vim.pack.add({
 
   -- Git
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
-  { src = "https://github.com/barrettruth/diffs.nvim" },
+  { src = "https://github.com/dlyongemallo/diffview-plus.nvim" },
   { src = "https://github.com/MunifTanjim/nui.nvim" },
 
   -- Folds
@@ -481,14 +481,15 @@ require("gitsigns").setup({
   end,
 })
 
-vim.g.diffs = {
-  integrations = {
-    gitsigns = true,
-  },
-}
-
-vim.keymap.set("n", "<leader>gc", ":Diff ++layout=split<cr>", {
-  desc = "Git Diff (Split)",
+require("diffview").setup({})
+vim.keymap.set("n", "<leader>gc", function()
+  if next(require("diffview.lib").views) == nil then
+    vim.cmd("DiffviewOpen")
+  else
+    vim.cmd("DiffviewClose")
+  end
+end, {
+  desc = "Git Diff",
 })
 
 require('ufo').setup({

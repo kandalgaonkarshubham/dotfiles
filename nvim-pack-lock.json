@@ -20,9 +20,9 @@
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "diffs.nvim": {
-      "rev": "1a3c9a79bb46220213b81e9ba8a11a4db0009e9a",
-      "src": "https://github.com/barrettruth/diffs.nvim"
+    "diffview-plus.nvim": {
+      "rev": "1551fc496c29e14ebd4cf04543549a59dfe5d0dc",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "eldritch.nvim": {
       "rev": "c9131a5a11f00a2f428f563a4eb2c4aeb680d963",
