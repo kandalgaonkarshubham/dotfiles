@@ -44,6 +44,14 @@
       "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "graph_view_toml_parser": {
+      "rev": "e52ddcbae563c924a19faf998f862ae61d13a777",
+      "src": "https://github.com/Owen-Dechow/graph_view_toml_parser"
+    },
+    "graph_view_yaml_parser": {
+      "rev": "ecc5ba0a0b8c3a6eb3e7fa5a2caeeee2263729c3",
+      "src": "https://github.com/Owen-Dechow/graph_view_yaml_parser"
+    },
     "hardtime.nvim": {
       "rev": "b4e431934af1fe224a3a801f632c008278cb7628",
       "src": "https://github.com/m4xshen/hardtime.nvim"
@@ -188,9 +196,17 @@
       "rev": "8ac59883de84e9cd1850ea25cf087031c5ba7d54",
       "src": "https://github.com/xiyaowong/transparent.nvim"
     },
+    "videre.nvim": {
+      "rev": "0ac28c8d10bd42a25386ebf5f8db612306de24f2",
+      "src": "https://github.com/Owen-Dechow/videre.nvim"
+    },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"
+    },
+    "xml2lua.nvim": {
+      "rev": "c5fa33ad038958e9592df06e8ca6a88f4e7543aa",
+      "src": "https://github.com/a-usr/xml2lua.nvim"
     }
   }
 }
