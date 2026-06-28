@@ -50,8 +50,31 @@ local tools = vim.list_extend(vim.deepcopy(linters), formatters)
 -- lsp
 vim.diagnostic.config({
   virtual_text = true,
+  virtual_lines = { current_line = true },
+  underline = true,
+  update_in_insert = false,
   signs = false,
 })
+
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
+  group = vim.api.nvim_create_augroup('diagnostic_only_virtlines', { clear = true }),
+  callback = function()
+    local cfg = vim.diagnostic.config()
+    local curr = cfg.virtual_lines
+    if not (curr and type(curr) == 'table' and curr.current_line) then
+      vim.diagnostic.config({ virtual_text = cfg.virtual_text })
+      return
+    end
+
+    local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+    if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
+      vim.diagnostic.config({ virtual_text = true })
+    else
+      vim.diagnostic.config({ virtual_text = false })
+    end
+  end,
+})
+
 vim.lsp.enable(lsp_servers)
 vim.api.nvim_create_autocmd(
 	"LspAttach",
