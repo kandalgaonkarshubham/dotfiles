@@ -9,8 +9,9 @@ vim.pack.add({
   { src = "https://github.com/folke/which-key.nvim" },
   { src = "https://github.com/Owen-Dechow/videre.nvim" },
   { src = "https://github.com/Owen-Dechow/graph_view_yaml_parser" },
-  { src= "https://github.com/Owen-Dechow/graph_view_toml_parser" },
-  { src= "https://github.com/a-usr/xml2lua.nvim" },
+  { src = "https://github.com/Owen-Dechow/graph_view_toml_parser" },
+  { src = "https://github.com/a-usr/xml2lua.nvim" },
+  { src = "https://github.com/Kenzo-Wada/boundary.nvim", version = "release" },
 })
 
 local map = vim.keymap.set
@@ -101,3 +102,7 @@ require("videre").setup {
     box_style = "sharp",
 }
 map("n", "<leader>cg", "<Esc><cmd>Videre<CR>", { desc = "Open Data Graph" })
+
+require("boundary").setup({
+    marker_text = "Client Component",
+})

@@ -12,6 +12,15 @@
       "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
       "src": "https://github.com/Saghen/blink.lib"
     },
+    "boundary.nvim": {
+      "rev": "adc155c65d2bfe634d29933c5c8e36b249ff5009",
+      "src": "https://github.com/Kenzo-Wada/boundary.nvim",
+      "version": "'release'"
+    },
+    "buffer-switch-release": {
+      "rev": "6edf728e7a9b1dd798f4e2807e8734b447146b60",
+      "src": "https://github.com/tomkhoailang/buffer-switch-release"
+    },
     "codesnap.nvim": {
       "rev": "8e1d1339f6d5ca994841698a6dde3608dd5e2ad1",
       "src": "https://github.com/mistricky/codesnap.nvim"
