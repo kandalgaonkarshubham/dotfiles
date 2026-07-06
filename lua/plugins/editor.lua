@@ -333,6 +333,10 @@ map("n", "<leader>e", function()
   Snacks.explorer()
 end, { desc = "File Explorer" })
 
+map("n", "<leader>bl", function()
+  Snacks.picker.buffers()
+end, { desc = "List Open Files" })
+
 -- Git
 
 map("n", "<leader>gg", function()
