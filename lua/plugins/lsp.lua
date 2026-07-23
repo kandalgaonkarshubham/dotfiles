@@ -87,7 +87,6 @@ vim.api.nvim_create_autocmd(
 				return { buffer = ev.buf, silent = true, desc = desc }
 			end
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
-			vim.keymap.set("n", "<leader><space>", vim.lsp.buf.hover, opts("Hover documentation"))
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Go to implementation"))
 			vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts("Go to type definition"))
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts("Rename symbol"))
