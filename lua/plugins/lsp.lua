@@ -36,10 +36,12 @@ local lsp_servers = {
   "prismals",
   "phpactor",
   "eslint",
+  "gh_actions_ls",
 }
 local linters = {
   "sonarlint-language-server",
   "dotenv-linter",
+  "actionlint",
 }
 local formatters = {
   "prettierd",
