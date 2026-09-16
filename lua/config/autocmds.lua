@@ -1,110 +1,124 @@
--- Autocmds are automatically loaded on the VeryLazy event
--- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
---
--- Add any additional autocmds here
--- with `vim.api.nvim_create_autocmd`
---
--- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
--- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+--? [[ MasonUpdateAllComplete ]]
+-- vim.api.nvim_create_autocmd('User', {
+--   pattern = 'MasonUpdateAllComplete',
+--   callback = function()
+--     print('mason-update-all has finished')
+--   end,
+-- })
 
--- Lazyvim's highlight on word
-vim.api.nvim_create_autocmd("BufRead", {
-  callback = function()
-    vim.api.nvim_set_hl(0, "LspReferenceText", {})
-    vim.api.nvim_set_hl(0, "LspReferenceRead", {})
-    vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
-  end,
-})
+--? [[ Disable autoformat for specific directories ]]
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   callback = function()
+--     local cwd = vim.fn.getcwd()
+--     -- print("Current working directory: " .. cwd)
 
---? [[ Show Alpha on Empty Buffer ]]
--- vim.api.nvim_create_augroup("dashboard_on_empty", { clear = true })
--- vim.api.nvim_create_autocmd("BufDelete", {
---   pattern = "",
---   group = "dashboard_on_empty",
---   callback = function(args)
---     local buffers = vim.api.nvim_list_bufs()
---     local user_buffers = {}
---
---     for _, buf in ipairs(buffers) do
---       -- Only consider listed buffers that are normal files
---       if vim.api.nvim_buf_get_option(buf, "buflisted") and vim.api.nvim_buf_get_option(buf, "buftype") == "" then
---         table.insert(user_buffers, buf)
---       end
---     end
---     -- print(#user_buffers) -- Print the count of user buffers
---     if #user_buffers == 1 then -- Check If there is only one user buffer and if its empty
---       if buffer_name == "" then
---         vim.defer_fn(function()
---           vim.cmd("Alpha")
---         end, 50)
+--     local disabled_dirs = {
+--       "/home/tazerblaze/Projects/wntp",
+--     }
+--     for _, dir in ipairs(disabled_dirs) do
+--       if cwd:find(vim.fn.expand(dir)) == 1 then
+--         vim.b.autoformat = false
+--         -- print("Autoformat is disabled for this directory.")
+--         break
 --       end
 --     end
 --   end,
 -- })
 
---? [[ MasonUpdateAllComplete ]]
-vim.api.nvim_create_autocmd("User", {
-  pattern = "MasonUpdateAllComplete",
-  callback = function()
-    print("mason-update-all has finished")
-  end,
+-- restore cursor to file position in previous editing session
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+-- 	callback = function(args)
+-- 		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+-- 		local line_count = vim.api.nvim_buf_line_count(args.buf)
+-- 		if mark[1] > 0 and mark[1] <= line_count then
+-- 			vim.api.nvim_win_set_cursor(0, mark)
+-- 			-- defer centering slightly so it's applied after render
+-- 			vim.schedule(function()
+-- 				vim.cmd("normal! zz")
+-- 			end)
+-- 		end
+-- 	end,
+-- })
+
+-- no auto continue comments on new line
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	group = vim.api.nvim_create_augroup("no_auto_comment", {}),
+-- 	callback = function()
+-- 		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+-- 	end,
+-- })
+
+-- syntax highlighting for dotenv files
+-- vim.api.nvim_create_autocmd("BufRead", {
+-- 	group = vim.api.nvim_create_augroup("dotenv_ft", { clear = true }),
+-- 	pattern = { ".env", ".env.*" },
+-- 	callback = function()
+-- 		vim.bo.filetype = "dosini"
+-- 	end,
+-- })
+
+-- Update all vim.pack plugins
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.notify("Updating vim.pack plugins...", vim.log.levels.INFO)
+	vim.pack.update()
+end, {
+	desc = "Update all vim.pack plugins",
 })
 
---? [[ Disable autoformat for specific directories ]]
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  callback = function()
-    local cwd = vim.fn.getcwd()
-    -- print("Current working directory: " .. cwd)
+-- Remove plugins that are no longer declared in vim.pack.add()
+vim.api.nvim_create_user_command("PackClean", function()
+	local inactive = vim.iter(vim.pack.get())
+		:filter(function(plugin)
+			return not plugin.active
+		end)
+		:map(function(plugin)
+			return plugin.spec.name
+		end)
+		:totable()
 
-    local disabled_dirs = {
-      "/home/tazerblaze/Projects/wntp",
-    }
-    for _, dir in ipairs(disabled_dirs) do
-      if cwd:find(vim.fn.expand(dir)) == 1 then
-        vim.b.autoformat = false
-        -- print("Autoformat is disabled for this directory.")
-        break
-      end
-    end
-  end,
+	if #inactive == 0 then
+		vim.notify("No inactive plugins to remove", vim.log.levels.INFO)
+		return
+	end
+
+	vim.pack.del(inactive)
+
+	vim.notify(
+		"Removed: " .. table.concat(inactive, ", "),
+		vim.log.levels.INFO
+	)
+end, {
+	desc = "Remove plugins not declared in vim.pack.add()",
 })
 
--- Fix for snacks.nvim picker crash on Neovim 0.11
--- Neovim 0.11 removed/moved vim.lsp.protocol._provider_to_client_registration which snacks.nvim expects
-if not vim.lsp.protocol._provider_to_client_registration then
-  vim.lsp.protocol._provider_to_client_registration = {
-    callHierarchyProvider = { "textDocument/prepareCallHierarchy" },
-    codeActionProvider = { "textDocument/codeAction" },
-    codeLensProvider = { "textDocument/codeLens" },
-    colorProvider = { "textDocument/documentColor" },
-    completionProvider = { "textDocument/completion" },
-    declarationProvider = { "textDocument/declaration" },
-    definitionProvider = { "textDocument/definition" },
-    documentFormattingProvider = { "textDocument/formatting" },
-    documentHighlightProvider = { "textDocument/documentHighlight" },
-    documentLinkProvider = { "textDocument/documentLink" },
-    documentOnTypeFormattingProvider = { "textDocument/onTypeFormatting" },
-    documentRangeFormattingProvider = { "textDocument/rangeFormatting" },
-    documentSymbolProvider = { "textDocument/documentSymbol" },
-    executeCommandProvider = { "workspace/executeCommand" },
-    foldingRangeProvider = { "textDocument/foldingRange" },
-    hoverProvider = { "textDocument/hover" },
-    implementationProvider = { "textDocument/implementation" },
-    referencesProvider = { "textDocument/references" },
-    renameProvider = { "textDocument/rename" },
-    selectionRangeProvider = { "textDocument/selectionRange" },
-    signatureHelpProvider = { "textDocument/signatureHelp" },
-    typeDefinitionProvider = { "textDocument/typeDefinition" },
-    workspaceSymbolProvider = { "workspace/symbol" },
-  }
-end
+-- Update plugins and remove inactive ones
+vim.api.nvim_create_user_command("PackSync", function()
+	vim.pack.update()
 
--- Also ensure client-side registration table exists (some plugins might still need it)
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and not client._provider_to_client_registration then
-      client._provider_to_client_registration = {}
-    end
-  end,
+	local inactive = vim.iter(vim.pack.get())
+		:filter(function(plugin)
+			return not plugin.active
+		end)
+		:map(function(plugin)
+			return plugin.spec.name
+		end)
+		:totable()
+
+	if #inactive > 0 then
+		vim.pack.del(inactive)
+	end
+end, {
+	desc = "Update plugins and remove inactive ones",
 })
+
+-- Notify of any early startup errors
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		if vim.v.errmsg and vim.v.errmsg ~= "" then
+			vim.schedule(function()
+				vim.notify(vim.v.errmsg, vim.log.levels.ERROR, { title = "Startup Error" })
+			end)
+		end
+	end,
+})
+

@@ -1,23 +1,70 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+--! [[ Disable netrw ]]
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+--! [[ Enable 24-bit colour ]]
+vim.opt.termguicolors = true
+
+--! [[ Line Numbers ]]
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
 --! [[ Current Cursor Line Color ]]
 vim.opt.cursorline = true
-
---! [[ Eslint & Prettier ]]
-vim.g.lazyvim_eslint_auto_format = false
-vim.g.lazyvim_prettier_needs_config = true
 
 --! [[ Word Wrap ]]
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.showbreak = "↪ "
 
---! [[ Enable the option to require a Prettier config file ]]
---! [[ If no prettier config file is found, the formatter will not be used ]]
-vim.g.lazyvim_prettier_needs_config = true
+--! [[ Spaces/Tabs ]]
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 
 --! [[ Disable AutoFormatting ]]
-vim.g.lazyvim_eslint_auto_format = false
 vim.g.autoformat = false
+
+--! [[ Splits ]]
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+--! [[ Search ]]
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.laststatus = 3
+
+--! [[ Swap/Undo ]]
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
+vim.opt.undofile = true
+
+--! [[ Autocompletion ]]
+-- vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
+-- vim.opt.shortmess:append("c")
+vim.opt.clipboard:append("unnamedplus")
+vim.opt.isfname:append("@-@")
+-- vim.opt.guicursor = ""
+vim.opt.scrolloff = 8
+
+--! [[ Column Line ]]
+vim.opt.colorcolumn = "0"
+vim.opt.signcolumn = "yes"
+
+--! [[ Yank Highlighting ]]
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
+
+--! [[ Plugin Options ]]
+
+-- nvim ufo
+vim.o.foldcolumn = '0'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true

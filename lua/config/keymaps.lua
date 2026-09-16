@@ -1,15 +1,22 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+--* [[ Map leader to Space ]]
+vim.g.mapleader = " "
 
 --* [[ Map jj to Esc ]]
 vim.keymap.set("i", "jj", "<ESC>", { silent = true })
 
---* Move Lines Up & Down
--- vim.api.nvim_set_keymap('n', 'J', ":m .+1<CR>==", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', 'K', ":m .-2<CR>==", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+--* [[ Move Lines Up & Down ]]
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", {
+  desc = "Move line down",
+})
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", {
+  desc = "Move line up",
+})
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", {
+  desc = "Move selection down",
+})
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", {
+  desc = "Move selection up",
+})
 
 --* [[ Save File ]]
 vim.keymap.set("n", "<leader>bs", ":w<CR>", { noremap = true, silent = true, desc = "Save Buffer" })
@@ -28,5 +35,32 @@ vim.keymap.set("n", "<leader>cl", function()
   vim.cmd.normal("oconsole.log('" .. esc .. "pa:', " .. esc .. "pA);" .. esc)
 end, { desc = "Console log word under cursor" })
 
+-- Yank/Delete QOL
+vim.keymap.set("x", "p", [["_dP]], { desc = "Paste over selection without losing yanked text" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
+vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search highlighting", silent = true })
+
+-- Indentation QOL
+vim.keymap.set("v", "<", "<gv", { desc = "Unindent and keep selection" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent and keep selection" })
+
+-- vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor" })
+
+-- Scroll/Search with Cursor at the center of the page
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "move down in buffer with cursor centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor centered" })
+
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
+
+-- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
+
+-- vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
+
+-- native undotree
+-- vim.keymap.set("n", "<leader>u", function()
+--     vim.cmd.packadd("nvim.undotree")
+--     require("undotree").open()
+-- end, { desc = "Toggle Builtin Undotree" })
 
 -- ? [[ Plugin Keymaps ]]
